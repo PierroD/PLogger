@@ -10,6 +10,7 @@ namespace PLogger
     {
         static void Main(string[] args)
         {
+
         }
     }
 }

@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 
-namespace TestObserver.Class
+namespace PLogger.Class
 {
-    class PLogger
+    class Logger
     {
         private static string _msg;
         private static string _functionPassThrough;
@@ -69,7 +69,7 @@ namespace TestObserver.Class
             else
                 _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > {message}");
 
-            new PLogger().whichMethodToLog(_msg);  //call a non-static function in a static function
+            new Logger().whichMethodToLog(_msg);  //call a non-static function in a static function
         }
         /// <summary>
         /// <return>Current Timestamp hour:minutes:seconds:milliseconds</return>
