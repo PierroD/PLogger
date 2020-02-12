@@ -1,0 +1,7 @@
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger.exe.config
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger.exe
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger.pdb
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.csprojAssemblyReference.cache
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.csproj.CoreCompileInputs.cache
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.exe
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.pdb

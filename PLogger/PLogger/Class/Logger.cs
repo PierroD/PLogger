@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using PLogger.Configuration;
 
 namespace PLogger.Class
 {
@@ -17,16 +18,6 @@ namespace PLogger.Class
         private static string _functionPassThrough;
 
         #region Message Type
-        public static void Infos(string message)
-        {
-            CreateMessage("I  [INFOS]", message);
-        }
-
-        public static void Error(string message)
-        {
-            CreateMessage("⚠ [ERROR]", message);
-        }
-
         public static void Trace(string message)
         {
             CreateMessage(">> [TRACE]", message);
@@ -34,6 +25,22 @@ namespace PLogger.Class
         public static void Debug(string message)
         {
             CreateMessage("?  [DEBUG]", message);
+        }
+        public static void Infos(string message)
+        {
+            CreateMessage("I  [INFOS]", message);
+        }
+        public static void Warn(string message)
+        {
+            CreateMessage("W  [WARNS]", message);
+        }
+        public static void Error(string message)
+        {
+            CreateMessage("⚠ [ERROR]", message);
+        }
+        public static void Fatal(string message)
+        {
+            CreateMessage("F  [FATAL]", message);
         }
         #endregion
 
@@ -68,7 +75,6 @@ namespace PLogger.Class
                 _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > ( { getFunctionPassedThrough()} ) {message}");
             else
                 _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > {message}");
-
             new Logger().whichMethodToLog(_msg);  //call a non-static function in a static function
         }
         /// <summary>
@@ -96,13 +102,25 @@ namespace PLogger.Class
         /// <param name="message"></param>
         private void whichMethodToLog(string message)
         {
+            targetsElement config = GetConfig();
+            foreach(targetsElement target in config.Targets)
+            {
+                Console.WriteLine(target.filePath);
+
+            }
             if (ConfigurationManager.AppSettings.Get("saveType") == "file")
             {
                 writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + ConfigurationManager.AppSettings.Get("fileName") + $"_{ CurrentDate().Replace('/', '_') }") + ".log", message);
                 //we call the function named writeToFile with those parameters { FilePath, TheMessage }
             }
-
         }
+
+        private static targetsElement GetConfig()
+        {
+            return (targetsElement)ConfigurationManager.GetSection("PLoggerConfiguration");
+        }
+
+
         #region savingType
         /// <summary>
         /// Check if the log allready exist, if it does it will write in it 
@@ -130,6 +148,7 @@ namespace PLogger.Class
         #endregion
 
         #endregion
+
 
     }
 }
