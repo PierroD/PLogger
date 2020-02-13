@@ -42,6 +42,11 @@ namespace PLogger.Class
         {
             CreateMessage("F  [FATAL]", message);
         }
+        //Internal is for internal PLogger Error
+        private static string InternalError(string message)
+        {
+            return "IN [INTERNAL ERROR] " + message;
+        }
         #endregion
 
         #region Function passed through
@@ -50,7 +55,7 @@ namespace PLogger.Class
         /// </summary>
         /// <param name="className"></param>
         /// <param name="functionName"></param>
-        public static void setFunctionPassedThrough([CallerFilePath] string className = "", [CallerMemberName] string functionName ="", [CallerLineNumber] int lineNumber = 0)
+        public static void setFunctionPassedThrough([CallerFilePath] string className = "", [CallerMemberName] string functionName = "", [CallerLineNumber] int lineNumber = 0)
         {
             if (String.IsNullOrEmpty(getFunctionPassedThrough()))
                 _functionPassThrough += $"{className.Split('\\').Last()}|{functionName}|ligne.{lineNumber}";
@@ -71,12 +76,23 @@ namespace PLogger.Class
         /// <param name="message"></param>
         public static void CreateMessage(string type, string message)
         {
-            if (ConfigurationManager.AppSettings.Get("detailMode") == "true" && !String.IsNullOrEmpty(getFunctionPassedThrough()))
-                _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > ( { getFunctionPassedThrough()} ) {message}");
-            else
-                _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > {message}");
-            new Logger().whichMethodToLog(_msg);  //call a non-static function in a static function
+            try
+            {
+                foreach (PLoggerElement target in GetConfig().PLoggerInstances)
+                {
+                    if (target.DetailMode == true && !String.IsNullOrEmpty(getFunctionPassedThrough()))
+                        _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > ( { getFunctionPassedThrough()} ) {message}");
+                    else
+                        _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > {message}");
+                    new Logger().whichMethodToLog(target, _msg);  //call a non-static function in a static function
+                }
+            }
+            catch (Exception e)
+            {
+                new Logger().whichMethodToLog(null, "", " Your App.config is malformed");  //call a non-static function in a static function
+            }
         }
+        #region Timestamp & Date
         /// <summary>
         /// <return>Current Timestamp hour:minutes:seconds:milliseconds</return>
         /// </summary>
@@ -95,29 +111,44 @@ namespace PLogger.Class
         }
         #endregion
 
-        #region Save Log
+        #endregion
+
+        #region Save Logs
         /// <summary>
         /// Check if .config `saveType` = "file" to save it into a file
         /// </summary>
         /// <param name="message"></param>
-        private void whichMethodToLog(string message)
+        private void whichMethodToLog(PLoggerElement target, string message, string error = "")
         {
-            targetsElement config = GetConfig();
-            foreach(targetsElement target in config.Targets)
+            try
             {
-                Console.WriteLine(target.filePath);
+                switch (target.SaveType)
+                {
+                    case "file":
+                        {
+                            if (String.IsNullOrEmpty(target.FilePath))
+                                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", message);
+                            else
+                                writeToFile(string.Format(target.FilePath + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '_') }") + ".log", message);
+                            break;
+                            //we call the function named writeToFile with those parameters { FilePath, TheMessage }
+                        }
+                    default:
+                        {
+                            writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError("No writting log method"));
+                            break;
+                        }
+                }
 
             }
-            if (ConfigurationManager.AppSettings.Get("saveType") == "file")
+            catch (Exception e) //if target.FileName doesn't exist
             {
-                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + ConfigurationManager.AppSettings.Get("fileName") + $"_{ CurrentDate().Replace('/', '_') }") + ".log", message);
-                //we call the function named writeToFile with those parameters { FilePath, TheMessage }
-            }
-        }
+                if (String.IsNullOrEmpty(error))
+                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError(e.ToString()));
+                else
+                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError(error));
 
-        private static targetsElement GetConfig()
-        {
-            return (targetsElement)ConfigurationManager.GetSection("PLoggerConfiguration");
+            }
         }
 
 
@@ -149,6 +180,16 @@ namespace PLogger.Class
 
         #endregion
 
+        #region Config
+        /// <summary>
+        /// Get the elements stored in the App.config
+        /// </summary>
+        /// <returns></returns>
+        private static PLoggerConfig GetConfig()
+        {
+            return (PLoggerConfig)ConfigurationManager.GetSection("PLogger");
+        }
+        #endregion
 
     }
 }
