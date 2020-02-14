@@ -10,8 +10,8 @@ To run this project, download ...
     
 ## Log Level
 
-* Trace, Debug, Infos, Warns, Error, Fatal : you can use those in your application
-* Internal Error : this one is used by PLogger if you do a mistake with the app.config file or database
+* ````Trace````, ```Debug```, ```Infos```, ```Warns```, ```Error```, ```Fatal``` : you can use those in your application
+* ```Internal Error``` : this one is used by PLogger if you do a mistake with the App.config file or database
 
 ## Commun usage
 This method is static for the moment so to call it
