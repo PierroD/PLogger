@@ -1,16 +1,16 @@
 ## PLogger
 This project is similar to Log Frameworks as like as (Nlog or Log4Net).
 My goal is to build my own Log system.
-I made eveything during my free time.
+I made everything during my free time.
 
 
 ## Setup
 To run this project, download ...
 
-	
+    
 ## Log Level
 
-* Trace, Debug, Infos, Warns, Error, Fatal : you can use those in your own application
+* Trace, Debug, Infos, Warns, Error, Fatal : you can use those in your application
 * Internal Error : this one is used by PLogger if you do a mistake with the app.config file or database
 
 ## Commun usage
@@ -27,8 +27,8 @@ Logger.Fatal("your text");
 
 ## File or Database
 
-* File : give you the opportunity to save it in a file.log 
-* Database : : give you the opportunity to save it in a database (you just need to create the table)
+* File : allow you to save it in a file.log 
+* Database : : allow you to save it in a database (you just need to create the table)
 
 App.config for File & Database :
 ```
@@ -60,7 +60,7 @@ if you you write
 ```
 Logger.setFunctionPassedThrough(); // 
 ```
-	
+    
 
 ## Database 
 used to make it work, feel free to use it
@@ -79,7 +79,7 @@ created_at timestamp DEFAULT current_timestamp
 
 ## File.log example 
 
-Inside PLogger_14-02-2020.log
+PLogger_14-02-2020.log
 ```
 I  [INFOS] Light 14/02/2020 < 00:59:32.9616 > Info Test
 ⚠  [ERROR] Light 14/02/2020 < 00:59:33.2109 > ( Program.cs|Main|ligne.20 ) Error Test
