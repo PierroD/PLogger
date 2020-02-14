@@ -16,3 +16,35 @@ I  [INFOS] Light 14/02/2020 < 00:51:22.5450 > Info Test
 ⚠  [ERROR] Light 14/02/2020 < 00:51:22.8103 > ( Program.cs|Main|ligne.20 ) Error Test
 I  [INFOS] Light 14/02/2020 < 00:59:32.9616 > Info Test
 ⚠  [ERROR] Light 14/02/2020 < 00:59:33.2109 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 18:36:37.8708 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 18:36:38.6073 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 18:36:49.4060 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 18:36:49.7601 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 18:39:27.1695 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 18:39:27.6530 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 18:41:04.4692 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 18:41:04.4972 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 18:41:30.6766 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 18:41:30.6995 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 19:07:52.8550 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 19:07:52.8839 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 19:46:12.0126 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 19:46:12.0438 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 19:49:50.2575 > Info Test
+!! [ERROR] Light 14/02/2020 < 19:49:50.2887 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 19:55:08.6856 > Info Test
+!! [ERROR] Light 14/02/2020 < 19:55:08.7168 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 20:12:25.5616 > Info Test
+!! [ERROR] Light 14/02/2020 < 20:12:25.6005 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 20:23:44.9825 > Info Test
+!! [ERROR] Light 14/02/2020 < 20:23:45.0263 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 20:25:45.4018 > Info Test
+!! [ERROR] Light 14/02/2020 < 20:25:45.4427 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 20:27:06.5023 > Info Test
+!! [ERROR] Light 14/02/2020 < 20:27:06.5382 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 20:28:27.9320 > Info Test
+!! [ERROR] Light 14/02/2020 < 20:28:27.9839 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 20:28:57.2619 > Info Test
+!! [ERROR] Light 14/02/2020 < 20:28:57.3058 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 20:31:47.8848 > Info Test
+!! [ERROR] Light 14/02/2020 < 20:31:47.9161 > ( Program.cs|Main|ligne.20 ) Error Test

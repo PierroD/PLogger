@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using MySql.Data.MySqlClient;
 using PLogger.Configuration;
+using Newtonsoft.Json;
 
 namespace PLogger.Class
 {
@@ -28,7 +29,7 @@ namespace PLogger.Class
         }
         public static void Debug(string message)
         {
-            _type = "?  [DEBUG]";
+            _type = "?? [DEBUG]";
             _msg = message;
             whichMethodToLog();
         }
@@ -46,7 +47,7 @@ namespace PLogger.Class
         }
         public static void Error(string message)
         {
-            _type = "⚠  [ERROR]";
+            _type = "!! [ERROR]";
             _msg = message;
             whichMethodToLog();
         }
@@ -59,7 +60,7 @@ namespace PLogger.Class
         //Internal is for internal PLogger Error
         private static string InternalError(string message)
         {
-            return $"IN [INTERNAL ERROR] {Environment.UserName}  {CurrentDate()} < {CurrentTimestamp()} > " + message;
+            return $"IE [INTERNAL ERROR] {Environment.UserName}  {CurrentDate()} < {CurrentTimestamp()} > " + message;
         }
         #endregion
 
@@ -102,7 +103,7 @@ namespace PLogger.Class
 
             catch (Exception e)
             {
-                _msg = InternalError(" Your App.config is malformed");  //call a non-static function in a static function
+                _msg = InternalError(" Your App.config is malformed " + e.ToString());  //call a non-static function in a static function
             }
             return _msg;
         }
@@ -128,10 +129,12 @@ namespace PLogger.Class
         #endregion
 
         #region Save Logs
+
+        #region Method to choose
         /// <summary>
         /// Check if .config `saveType` = "file" to save it into a file
         /// </summary>
-        /// <param name="message"></param>
+        /// <param></param>
         private static void whichMethodToLog()
         {
             try
@@ -143,7 +146,23 @@ namespace PLogger.Class
                         case "mysql":
                             {
                                 string connection = String.Format($"SERVER={target.DbHost};DATABASE={target.DbName};UID={target.DbUser};PASSWORD={target.DbPassword};");
-                                writeToDatabase(new MySqlConnection(connection));
+                                writeToDatabase(new MySqlConnection(connection), target.DetailMode);
+                                break;
+                            }
+                        case "json":
+                            {
+                                MessageJson message = new MessageJson();
+                                message.type = _type.Substring(3).Replace(" ", String.Empty);
+                                message.message = _msg;
+                                message.date = CurrentDate();
+                                message.created_at = CurrentTimestamp();
+                                message.passed_through = (target.DetailMode) ? _functionPassThrough : null;
+
+                                if (String.IsNullOrEmpty(target.FilePath))
+                                    writeToJson(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".json", message, target);
+                                else
+                                    writeToJson(string.Format(target.FilePath + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".json", message, target);
+
                                 break;
                             }
                         case "file":
@@ -151,13 +170,13 @@ namespace PLogger.Class
                                 if (String.IsNullOrEmpty(target.FilePath))
                                     writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", CreateMessage(target));
                                 else
-                                    writeToFile(string.Format(target.FilePath + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '_') }") + ".log", CreateMessage(target));
+                                    writeToFile(string.Format(target.FilePath + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", CreateMessage(target));
                                 break;
                                 //we call the function named writeToFile with those parameters { FilePath, TheMessage }
                             }
                         default:
                             {
-                                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError("No writting log method"));
+                                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError("No writting log method"));
                                 break;
                             }
                     }
@@ -165,13 +184,15 @@ namespace PLogger.Class
             }
             catch (Exception e) //if target.FileName doesn't exist
             {
-                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError(e.ToString()));
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e.ToString()));
             }
         }
-
+        #endregion
 
 
         #region savingType
+
+        #region file
         /// <summary>
         /// Check if the log allready exist, if it does it will write in it 
         /// else it will create it and write in it
@@ -195,7 +216,11 @@ namespace PLogger.Class
                 }
             }
         }
-        private static void writeToDatabase(MySqlConnection connection)
+        #endregion
+
+        #region database
+
+        private static void writeToDatabase(MySqlConnection connection, bool detail)
         {
             try
             {
@@ -205,14 +230,47 @@ namespace PLogger.Class
                 query.Parameters.AddWithValue("@type", _type.Substring(3).Replace(" ", String.Empty));
                 query.Parameters.AddWithValue("@username", Environment.UserName);
                 query.Parameters.AddWithValue("@message", _msg);
-                query.Parameters.AddWithValue("@passed_through", _functionPassThrough);
+                query.Parameters.AddWithValue("@passed_through", (detail) ? _functionPassThrough : null);
                 query.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError(e.ToString()));
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e.ToString()));
             }
         }
+        #endregion
+
+        #region Json
+        private static void writeToJson(string filePath, MessageJson msgJson, PLoggerElement target)
+        {
+            if (File.Exists(filePath))
+            {
+                List<string> lines = File.ReadAllLines(filePath).ToList();
+                File.WriteAllLines(filePath, lines.GetRange(0, lines.Count - 3).ToArray());
+                using (StreamWriter sw = File.AppendText(filePath))
+                {
+                    sw.WriteLine(",");
+                    sw.WriteLine(JsonConvert.SerializeObject(msgJson));
+                    sw.WriteLine("]");
+                    sw.WriteLine("}");
+                    sw.WriteLine("}");
+                }
+            }
+            else
+            {
+                using (StreamWriter sw = File.CreateText(filePath))
+                {
+                    sw.WriteLine("{ " + "\""+target.FileName+"\" : ");
+                    sw.WriteLine("{ " + "\"Log\" : [ ");
+                    sw.WriteLine(JsonConvert.SerializeObject(msgJson));
+                    sw.WriteLine("]");
+                    sw.WriteLine("}");
+                    sw.WriteLine("}");
+                }
+            }
+        }
+        #endregion
+
         #endregion
 
         #endregion

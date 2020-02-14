@@ -1,7 +1,6 @@
 ## PLogger
-This project is similar to Log Frameworks as like as ([NLog](https://nlog-project.org) or [Log4Net](https://logging.apache.org/log4net/)).
+This project is similar to ([NLog](https://nlog-project.org) or [Log4Net](https://logging.apache.org/log4net/)) Frameworks.
 My goal is to build my own Log system.
-I made everything during my free time.
 
 
 ## Setup
@@ -15,23 +14,24 @@ To run this project, download ...
 
 ## Commun usage
 This method is static for the moment so to call it
-you just have to write :
-``` 
-Logger.Trace("your text");
-Logger.Debug("your text");
-Logger.Info("your text");
-Logger.Warns("your text");
-Logger.Error("your text");
-Logger.Fatal("your text");
+you just have to write ``Logger.*``:
+```c
+Logger.Trace("your text"); // >> [TRACE]
+Logger.Debug("your text"); // ?? [DEBUG]
+Logger.Infos("your text"); // I  [INFOS]
+Logger.Warns("your text"); // W  [WARNS]
+Logger.Error("your text"); // !! [ERROR]
+Logger.Fatal("your text"); // F  [FATAL]
 ```
 
-## File or Database
+## File | Database | Json
 
-* File : allow you to save it in a file.log 
-* Database : : allow you to save it in a database (you just need to create the table)
+* File : allow you to save your logs in a .log file
+* Database : : allow you to save your log inside a mysql database (you just need to create the table)
+* Json : allow you to save your logs in a .json file
 
-App.config for File & Database :
-```
+App.config for File & Database & Json :
+```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <configSections>
@@ -43,28 +43,42 @@ App.config for File & Database :
   </startup>
   <PLogger>
     <targets>
+       <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" detailMode="true" />
+      <add saveType="json" fileName="PLogger" filePath="" detailMode="true"/>
       <add saveType="file" fileName="PLogger" filePath="" detailMode="true"/>
-      <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="123+aze" />
     </targets>
   </PLogger>
 </configuration>
 ```
-If you don't specify the filePath it will creat a file.log in the same folder of the solution.
-detailMode unable the function used section
-As you can see you are able to store it in a file and in a MySQL database at the sametime
+If you don't specify the filePath it will creat a .log or .json file in the same folder than the solution.
+detailMode allow you to see which function your programm went through (really usefull if someone else try to find something in your project which contains 1K+ lines)
+You are also able to save your logs inside a MySQL database.
 
 
-## Function(s) Used
-You are able to see which function your programm go through
-if you you write
-```
-Logger.setFunctionPassedThrough(); // 
-```
-    
+## DetailMode 
+ - PLogger is able to give you (where it get called) : 
+``` 
+the file|the method|this ligne
+ ```` 
 
-## Database 
-used to make it work, feel free to use it
+
+- To use detail mode set it to "true" in the App.config :
+```xml
+<add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" detailMode="true" />
 ```
+- To make it works, add the following line to evey method :
+```
+Logger.setFunctionPassedThrough(); // before any Logger.*
+Logger.Infos("this is an informational test");
+```
+##### Example
+```
+!! [ERROR] PierroD 14/02/2020 < 20:31:47.9161 > ( Program.cs|Main|ligne.20 ) Error Test
+```
+
+## Database (MySQL)
+- To make it work you have to build the same table :
+```sql
 create database PLogger;
 use PLogger;
 create table Log(
@@ -76,17 +90,74 @@ passed_through varchar(255),
 created_at timestamp DEFAULT current_timestamp
 );
 ```
+- Add this line in your App.config (Add it before the file.log one)
+```xml
+   <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" detailMode="true" />
+```
+#### Example
+```sql
++----+---------+----------+------------+--------------------------+---------------------+
+| id | type    | username | message    | passed_through           | created_at          |
++----+---------+----------+------------+--------------------------+---------------------+
+| 43 | [INFOS] | PierroD    | Info Test  | NULL                     | 2020-02-14 20:31:47 |
+| 44 | [ERROR] | PierroD    | Error Test | Program.cs|Main|ligne.20 | 2020-02-14 20:31:47 |
++----+---------+----------+------------+--------------------------+---------------------+
 
-## File.log example 
+```
 
-PLogger_14-02-2020.log
+## JSON
+- Add this line in your App.config (add it before the file.log one)
+```xml
+     <add saveType="json" fileName="PLogger" filePath="" detailMode="true"/>
 ```
-I  [INFOS] Light 14/02/2020 < 00:59:32.9616 > Info Test
-⚠  [ERROR] Light 14/02/2020 < 00:59:33.2109 > ( Program.cs|Main|ligne.20 ) Error Test
+##### Example
+```json
+{
+    "PLogger": {
+        "Log": [
+            {
+                "type": "[INFOS]",
+                "message": "Info Test",
+                "date": "14/02/2020",
+                "created_at": "20:28:57.0574",
+                "passed_through": null
+            },
+            {
+                "type": "[ERROR]",
+                "message": "Error Test",
+                "date": "14/02/2020",
+                "created_at": "20:28:57.2948",
+                "passed_through": "Program.cs|Main|ligne.20"
+            },
+            {
+                "type": "[INFOS]",
+                "message": "Info Test",
+                "date": "14/02/2020",
+                "created_at": "20:31:47.7287",
+                "passed_through": null
+            },
+            {
+                "type": "[ERROR]",
+                "message": "Error Test",
+                "date": "14/02/2020",
+                "created_at": "20:31:47.9161",
+                "passed_through": "Program.cs|Main|ligne.20"
+            }
+        ]
+    }
+}
 ```
-ExceptionErrorPLogger_14_02_2020.log
+
+## File.log | Example 
+
+- PLogger_14-02-2020.log
 ```
-IN [INTERNAL ERROR] Light  14/02/2020 < 00:36:20.4844 > MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[INFOS], Light, I  [INFOS] Light 14/02/2020 < 00:36:20.1456 > Info Test, )' at line 1
+I  [INFOS] PierroD 14/02/2020 < 00:59:32.9616 > Info Test
+!! [ERROR] PierroD 14/02/2020 < 00:59:33.2109 > ( Program.cs|Main|ligne.20 ) Error Test
+```
+- ExceptionErrorPLogger_14-02-2020.log
+```
+IE [INTERNAL ERROR] PierroD  14/02/2020 < 00:36:20.4844 > MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[INFOS], PierroD, I  [INFOS] PierroD 14/02/2020 < 00:36:20.1456 > Info Test, )' at line 1
    à MySql.Data.MySqlClient.MySqlStream.ReadPacket()
    à MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
    à MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
@@ -94,5 +165,5 @@ IN [INTERNAL ERROR] Light  14/02/2020 < 00:36:20.4844 > MySql.Data.MySqlClient.M
    à MySql.Data.MySqlClient.MySqlDataReader.NextResult()
    à MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
    à MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
-   à PLogger.Class.Logger.writeToDatabase(MySqlConnection connection) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 204
+   à PLogger.Class.Logger.writeToDatabase(MySqlConnection connection) dans C:\Users\PierroD\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 204
 ```

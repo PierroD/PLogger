@@ -2,7 +2,6 @@ C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger.exe.config
 C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger.exe
 C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger.pdb
 C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.csprojAssemblyReference.cache
-C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.csproj.CoreCompileInputs.cache
 C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.exe
 C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.pdb
 C:\Users\pduveau\Downloads\PLogger-master\PLogger\PLogger\obj\Debug\PLogger.csprojAssemblyReference.cache
@@ -20,3 +19,5 @@ C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\Google.Protobuf.xm
 C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\MySql.Data.xml
 C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\Renci.SshNet.xml
 C:\Users\Light\source\repos\PLogger\PLogger\PLogger\obj\Debug\PLogger.csproj.CopyComplete
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\Newtonsoft.Json.xml

@@ -1,0 +1,99 @@
+IE [INTERNAL ERROR] Light  14/02/2020 < 19:19:32.3461 > Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 'object' ne contient pas de définition pour 'type'
+   à CallSite.Target(Closure , CallSite , Object , String )
+   à System.Dynamic.UpdateDelegates.UpdateAndExecute2[T0,T1,TRet](CallSite site, T0 arg0, T1 arg1)
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 157
+IE [INTERNAL ERROR] Light  14/02/2020 < 19:19:32.3869 > Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 'object' ne contient pas de définition pour 'type'
+   à CallSite.Target(Closure , CallSite , Object , String )
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 157
+IE [INTERNAL ERROR] Light  14/02/2020 < 19:52:09.5540 > System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger_14\02\2020.json'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à System.IO.File.CreateText(String path)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 255
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 19:52:09.5852 > System.IO.DirectoryNotFoundException: Impossible de trouver une partie du chemin d'accès 'C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger_14\02\2020.json'.
+   à System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   à System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   à System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   à System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   à System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   à System.IO.StreamWriter..ctor(String path, Boolean append)
+   à System.IO.File.CreateText(String path)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 255
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:12:49.9918 > System.FormatException: Le format de la chaîne d'entrée est incorrect.
+   à System.Text.StringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   à System.String.FormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   à System.String.Format(String format, Object[] args)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 261
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:12:50.0286 > System.ArgumentOutOfRangeException: Nombre non négatif requis.
+Nom du paramètre : count
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.GetRange(Int32 index, Int32 count)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 249
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:14:13.7144 > System.FormatException: Le format de la chaîne d'entrée est incorrect.
+   à System.Text.StringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   à System.String.FormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   à System.String.Format(String format, Object[] args)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 261
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:14:13.7573 > System.ArgumentOutOfRangeException: Nombre non négatif requis.
+Nom du paramètre : count
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.GetRange(Int32 index, Int32 count)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 249
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:17:20.2434 > System.FormatException: Le format de la chaîne d'entrée est incorrect.
+   à System.Text.StringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   à System.String.FormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   à System.String.Format(String format, Object[] args)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 261
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:17:20.2912 > System.ArgumentOutOfRangeException: Nombre non négatif requis.
+Nom du paramètre : count
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.GetRange(Int32 index, Int32 count)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 249
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:18:08.5860 > System.ArgumentOutOfRangeException: Nombre non négatif requis.
+Nom du paramètre : count
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.GetRange(Int32 index, Int32 count)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 249
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:18:08.6518 > System.ArgumentOutOfRangeException: Nombre non négatif requis.
+Nom du paramètre : count
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.GetRange(Int32 index, Int32 count)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 249
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:19:44.0702 > System.ArgumentOutOfRangeException: Nombre non négatif requis.
+Nom du paramètre : count
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.GetRange(Int32 index, Int32 count)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 249
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:19:44.1051 > System.ArgumentOutOfRangeException: Nombre non négatif requis.
+Nom du paramètre : count
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.GetRange(Int32 index, Int32 count)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 249
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:20:24.4903 > System.FormatException: Le format de la chaîne d'entrée est incorrect.
+   à System.Text.StringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   à System.String.FormatHelper(IFormatProvider provider, String format, ParamsArray args)
+   à System.String.Format(String format, Object[] args)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 262
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
+IE [INTERNAL ERROR] Light  14/02/2020 < 20:20:24.5282 > System.ArgumentOutOfRangeException: Nombre non négatif requis.
+Nom du paramètre : count
+   à System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   à System.Collections.Generic.List`1.GetRange(Int32 index, Int32 count)
+   à PLogger.Class.Logger.writeToJson(String filePath, MessageJson msgJson, PLoggerElement target) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 249
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 162
