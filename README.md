@@ -1,5 +1,5 @@
 ## PLogger
-This project is similar to Log Frameworks as like as (Nlog or Log4Net).
+This project is similar to Log Frameworks as like as ([NLog](https://nlog-project.org) or [Log4Net](https://logging.apache.org/log4net/)).
 My goal is to build my own Log system.
 I made everything during my free time.
 
