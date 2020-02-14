@@ -1,0 +1,22 @@
+IN [INTERNAL ERROR] System.Configuration.ConfigurationErrorsException: Attribut obligatoire 'dbHost' introuvable. (C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger.exe.Config line 12)
+   à System.Configuration.BaseConfigurationRecord.EvaluateOne(String[] keys, SectionInput input, Boolean isTrusted, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentResult)
+   à System.Configuration.BaseConfigurationRecord.Evaluate(FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentResult, Boolean getLkg, Boolean getRuntimeObject, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSection(String configKey)
+   à System.Configuration.ClientConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection(String sectionName)
+   à System.Configuration.ConfigurationManager.GetSection(String sectionName)
+   à PLogger.Class.Logger.GetConfig() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 212
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 138
+IN [INTERNAL ERROR] System.Configuration.ConfigurationErrorsException: Attribut obligatoire 'dbHost' introuvable. (C:\Users\Light\source\repos\PLogger\PLogger\PLogger\bin\Debug\PLogger.exe.Config line 12)
+   à System.Configuration.BaseConfigurationRecord.EvaluateOne(String[] keys, SectionInput input, Boolean isTrusted, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentResult)
+   à System.Configuration.BaseConfigurationRecord.Evaluate(FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentResult, Boolean getLkg, Boolean getRuntimeObject, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSection(String configKey)
+   à System.Configuration.ClientConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection(String sectionName)
+   à System.Configuration.ConfigurationManager.GetSection(String sectionName)
+   à PLogger.Class.Logger.GetConfig() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 212
+   à PLogger.Class.Logger.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 138

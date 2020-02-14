@@ -1,0 +1,18 @@
+I  [INFOS] Light 14/02/2020 < 00:36:20.1456 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:36:20.4904 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 00:43:33.9687 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:43:34.2328 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 00:45:14.7836 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:45:15.0483 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 00:46:34.7774 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:46:35.0766 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFO] Light 14/02/2020 < 00:47:56.7093 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:47:56.9306 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 00:49:02.4994 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:49:02.7328 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 00:49:29.2084 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:49:29.4278 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 00:51:22.5450 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:51:22.8103 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 14/02/2020 < 00:59:32.9616 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:59:33.2109 > ( Program.cs|Main|ligne.20 ) Error Test

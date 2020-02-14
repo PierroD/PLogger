@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using MySql.Data.MySqlClient;
 using PLogger.Configuration;
 
 namespace PLogger.Class
@@ -16,36 +17,49 @@ namespace PLogger.Class
     {
         private static string _msg;
         private static string _functionPassThrough;
+        private static string _type;
 
         #region Message Type
         public static void Trace(string message)
         {
-            CreateMessage(">> [TRACE]", message);
+            _type = ">> [TRACE]";
+            _msg = message;
+            whichMethodToLog();
         }
         public static void Debug(string message)
         {
-            CreateMessage("?  [DEBUG]", message);
+            _type = "?  [DEBUG]";
+            _msg = message;
+            whichMethodToLog();
         }
         public static void Infos(string message)
         {
-            CreateMessage("I  [INFOS]", message);
+            _type = "I  [INFOS]";
+            _msg = message;
+            whichMethodToLog();
         }
         public static void Warn(string message)
         {
-            CreateMessage("W  [WARNS]", message);
+            _type = "W  [WARNS]";
+            _msg = message;
+            whichMethodToLog();
         }
         public static void Error(string message)
         {
-            CreateMessage("⚠ [ERROR]", message);
+            _type = "⚠  [ERROR]";
+            _msg = message;
+            whichMethodToLog();
         }
         public static void Fatal(string message)
         {
-            CreateMessage("F  [FATAL]", message);
+            _type = "F  [FATAL]";
+            _msg = message;
+            whichMethodToLog();
         }
         //Internal is for internal PLogger Error
         private static string InternalError(string message)
         {
-            return "IN [INTERNAL ERROR] " + message;
+            return $"IN [INTERNAL ERROR] {Environment.UserName}  {CurrentDate()} < {CurrentTimestamp()} > " + message;
         }
         #endregion
 
@@ -74,23 +88,23 @@ namespace PLogger.Class
         /// </summary>
         /// <param name="type"></param>
         /// <param name="message"></param>
-        public static void CreateMessage(string type, string message)
+        private static string CreateMessage(PLoggerElement target)
         {
             try
             {
-                foreach (PLoggerElement target in GetConfig().PLoggerInstances)
-                {
-                    if (target.DetailMode == true && !String.IsNullOrEmpty(getFunctionPassedThrough()))
-                        _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > ( { getFunctionPassedThrough()} ) {message}");
-                    else
-                        _msg = string.Format($"{type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > {message}");
-                    new Logger().whichMethodToLog(target, _msg);  //call a non-static function in a static function
-                }
+
+                if (target.DetailMode == true && !String.IsNullOrEmpty(getFunctionPassedThrough()))
+                    _msg = string.Format($"{_type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > ( { getFunctionPassedThrough()} ) {_msg}");
+                else
+                    _msg = string.Format($"{_type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > {_msg}");
+                //call a non-static function in a static function
             }
+
             catch (Exception e)
             {
-                new Logger().whichMethodToLog(null, "", " Your App.config is malformed");  //call a non-static function in a static function
+                _msg = InternalError(" Your App.config is malformed");  //call a non-static function in a static function
             }
+            return _msg;
         }
         #region Timestamp & Date
         /// <summary>
@@ -118,38 +132,43 @@ namespace PLogger.Class
         /// Check if .config `saveType` = "file" to save it into a file
         /// </summary>
         /// <param name="message"></param>
-        private void whichMethodToLog(PLoggerElement target, string message, string error = "")
+        private static void whichMethodToLog()
         {
             try
             {
-                switch (target.SaveType)
+                foreach (PLoggerElement target in GetConfig().PLoggerInstances)
                 {
-                    case "file":
-                        {
-                            if (String.IsNullOrEmpty(target.FilePath))
-                                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", message);
-                            else
-                                writeToFile(string.Format(target.FilePath + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '_') }") + ".log", message);
-                            break;
-                            //we call the function named writeToFile with those parameters { FilePath, TheMessage }
-                        }
-                    default:
-                        {
-                            writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError("No writting log method"));
-                            break;
-                        }
+                    switch (target.SaveType)
+                    {
+                        case "mysql":
+                            {
+                                string connection = String.Format($"SERVER={target.DbHost};DATABASE={target.DbName};UID={target.DbUser};PASSWORD={target.DbPassword};");
+                                writeToDatabase(new MySqlConnection(connection));
+                                break;
+                            }
+                        case "file":
+                            {
+                                if (String.IsNullOrEmpty(target.FilePath))
+                                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", CreateMessage(target));
+                                else
+                                    writeToFile(string.Format(target.FilePath + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '_') }") + ".log", CreateMessage(target));
+                                break;
+                                //we call the function named writeToFile with those parameters { FilePath, TheMessage }
+                            }
+                        default:
+                            {
+                                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError("No writting log method"));
+                                break;
+                            }
+                    }
                 }
-
             }
             catch (Exception e) //if target.FileName doesn't exist
             {
-                if (String.IsNullOrEmpty(error))
-                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError(e.ToString()));
-                else
-                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError(error));
-
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError(e.ToString()));
             }
         }
+
 
 
         #region savingType
@@ -159,7 +178,7 @@ namespace PLogger.Class
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="message"></param>
-        private void writeToFile(string filePath, string message)
+        private static void writeToFile(string filePath, string message)
         {
             if (File.Exists(filePath))
             {
@@ -174,6 +193,24 @@ namespace PLogger.Class
                 {
                     sw.WriteLine(message);
                 }
+            }
+        }
+        private static void writeToDatabase(MySqlConnection connection)
+        {
+            try
+            {
+                connection.Open();
+                MySqlCommand query = connection.CreateCommand();
+                query.CommandText = "INSERT INTO Log(type, username, message, passed_through) VALUES(@type, @username, @message, @passed_through)";
+                query.Parameters.AddWithValue("@type", _type.Substring(3).Replace(" ", String.Empty));
+                query.Parameters.AddWithValue("@username", Environment.UserName);
+                query.Parameters.AddWithValue("@message", _msg);
+                query.Parameters.AddWithValue("@passed_through", _functionPassThrough);
+                query.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '_') }") + ".log", InternalError(e.ToString()));
             }
         }
         #endregion

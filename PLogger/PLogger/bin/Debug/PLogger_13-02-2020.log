@@ -4,3 +4,9 @@ I  [INFOS] pduveau 13/02/2020 < 15:27:23.4124 > this is for App.config test
 I  [INFOS] pduveau 13/02/2020 < 15:29:07.9047 > Info Test
 I  [INFOS] pduveau 13/02/2020 < 15:29:26.6905 > Info Test
 ⚠ [ERROR] pduveau 13/02/2020 < 15:29:26.6905 > ( Program.cs|Main|ligne.21 ) Error Test
+I  [INFOS] Light 13/02/2020 < 19:46:55.1787 > Info Test
+⚠ [ERROR] Light 13/02/2020 < 19:46:55.1837 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 13/02/2020 < 23:42:52.1891 > Info Test
+⚠ [ERROR] Light 13/02/2020 < 23:42:52.1931 > ( Program.cs|Main|ligne.20 ) Error Test
+I  [INFOS] Light 13/02/2020 < 23:43:26.0690 > Info Test
+⚠ [ERROR] Light 13/02/2020 < 23:43:26.0741 > ( Program.cs|Main|ligne.20 ) Error Test

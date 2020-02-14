@@ -12,7 +12,7 @@ namespace PLogger.Configuration
         /// <summary>
         /// Get/Set saveType value in the app.config
         /// </summary>
-        [ConfigurationProperty("saveType", IsKey = true, IsRequired = true)]
+        [ConfigurationProperty("saveType", IsKey = true, IsRequired = false)]
         public string SaveType
         {
             get
@@ -27,7 +27,7 @@ namespace PLogger.Configuration
         /// <summary>
         /// Get/Set fileName value in the app.config
         /// </summary>
-        [ConfigurationProperty("fileName", DefaultValue = "PLogger", IsKey = true, IsRequired = true)]
+        [ConfigurationProperty("fileName", DefaultValue = "PLogger", IsKey = true, IsRequired = false)]
         public string FileName
         {
             get
@@ -42,7 +42,7 @@ namespace PLogger.Configuration
         /// <summary>
         /// Get/Set filePath value in the app.config
         /// </summary>
-        [ConfigurationProperty("filePath", IsKey = true, IsRequired = true)]
+        [ConfigurationProperty("filePath", IsKey = true, IsRequired = false)]
         public string FilePath
         {
             get
@@ -57,7 +57,7 @@ namespace PLogger.Configuration
         /// <summary>
         /// Get/Set detailMode value in the app.config
         /// </summary>
-        [ConfigurationProperty("detailMode", IsKey = true, IsRequired = true)]
+        [ConfigurationProperty("detailMode", IsKey = true, IsRequired = false)]
         public bool DetailMode
         {
             get
@@ -69,5 +69,67 @@ namespace PLogger.Configuration
                 base["detailMode"] = value;
             }
         }
+        /// <summary>
+        /// Get/Set dbHost value in the app.config
+        /// </summary>
+        [ConfigurationProperty("dbHost", IsKey = true, IsRequired = false)]
+        public string DbHost
+        {
+            get
+            {
+                return (string)base["dbHost"];
+            }
+            set
+            {
+                base["dbHost"] = value;
+            }
+        }
+        /// <summary>
+        /// Get/Set dbName value in the app.config
+        /// </summary>
+        [ConfigurationProperty("dbName", IsKey = true, IsRequired = false)]
+        public string DbName
+        {
+            get
+            {
+                return (string)base["dbName"];
+            }
+            set
+            {
+                base["dbName"] = value;
+            }
+        }
+        /// <summary>
+        /// Get/Set dbHost value in the app.config
+        /// </summary>
+        [ConfigurationProperty("dbUser", IsKey = true, IsRequired = false)]
+        public string DbUser
+        {
+            get
+            {
+                return (string)base["dbUser"];
+            }
+            set
+            {
+                base["dbUser"] = value;
+            }
+        }
+        /// <summary>
+        /// Get/Set dbHost value in the app.config
+        /// </summary>
+        [ConfigurationProperty("dbPassword", IsKey = true, IsRequired = false)]
+        public string DbPassword
+        {
+            get
+            {
+                return (string)base["dbPassword"];
+            }
+            set
+            {
+                base["dbPassword"] = value;
+            }
+        }
+
+
     }
 }
