@@ -63,6 +63,7 @@ Logger.setFunctionPassedThrough(); //
 	
 
 ## Database 
+used to make it work, feel free to use it
 ```
 create database PLogger;
 use PLogger;
@@ -74,4 +75,24 @@ message varchar(255),
 passed_through varchar(255),
 created_at timestamp DEFAULT current_timestamp
 );
+```
+
+## File.log example 
+
+Inside PLogger_14-02-2020.log
+```
+I  [INFOS] Light 14/02/2020 < 00:59:32.9616 > Info Test
+⚠  [ERROR] Light 14/02/2020 < 00:59:33.2109 > ( Program.cs|Main|ligne.20 ) Error Test
+```
+ExceptionErrorPLogger_14_02_2020.log
+```
+IN [INTERNAL ERROR] Light  14/02/2020 < 00:36:20.4844 > MySql.Data.MySqlClient.MySqlException (0x80004005): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[INFOS], Light, I  [INFOS] Light 14/02/2020 < 00:36:20.1456 > Info Test, )' at line 1
+   à MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   à MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   à MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   à MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   à MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   à MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   à MySql.Data.MySqlClient.MySqlCommand.ExecuteNonQuery()
+   à PLogger.Class.Logger.writeToDatabase(MySqlConnection connection) dans C:\Users\Light\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 204
 ```
