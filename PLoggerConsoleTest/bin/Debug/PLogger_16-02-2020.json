@@ -19,6 +19,10 @@
 {"type":"[INFOS]","message":"Informational Test","date":"16/02/2020","created_at":"19:30:36.6038","passed_through":null}
 ,
 {"type":"[ERROR]","message":"Error Test","date":"16/02/2020","created_at":"19:30:36.8472","passed_through":"Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26"}
+,
+{"type":"[INFOS]","username":"Light","message":"Informational Test","date":"16/02/2020","created_at":"21:19:13.5931","passed_through":null}
+,
+{"type":"[ERROR]","username":"Light","message":"Error Test","date":"16/02/2020","created_at":"21:19:13.8118","passed_through":"Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26"}
 ]
 }
 }

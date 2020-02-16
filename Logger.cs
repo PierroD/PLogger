@@ -182,6 +182,7 @@ namespace PLogger
                                 {
                                     MessageJson message = new MessageJson();
                                     message.type = _type.Substring(3).Replace(" ", String.Empty);
+                                    message.username = Environment.UserName;
                                     message.message = _msg;
                                     message.date = CurrentDate();
                                     message.created_at = CurrentTimestamp();

@@ -9,6 +9,7 @@ namespace PLogger
     public class MessageJson
     {
         public string type;
+        public string username;
         public string message;
         public string date;
         public string created_at;

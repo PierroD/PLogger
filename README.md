@@ -152,13 +152,13 @@ created_at timestamp DEFAULT current_timestamp
 ```
 #### Example
 ```sql
-+----+---------+----------+--------------------+--------------------------------------------------------------------------------+---------------------+
-| id | type    | username | message            | passed_through                                                                 | created_at          |
-+----+---------+----------+--------------------+--------------------------------------------------------------------------------+---------------------+
++----+---------+------------+--------------------+--------------------------------------------------------------------------------+---------------------+
+| id | type    | username   | message            | passed_through                                                                 | created_at          |
++----+---------+------------+--------------------+--------------------------------------------------------------------------------+---------------------+
 | 49 | [INFOS] | PierroD    | Informational Test | NULL                                                                           | 2020-02-15 18:56:19 |
 | 50 | [DEBUG] | PierroD    | Debug Test         | Program.cs|TestDebugFunction|ligne.21                                          | 2020-02-15 18:56:20 |
 | 51 | [ERROR] | PierroD    | Error Test         | Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 | 2020-02-15 18:56:20 |
-+----+---------+----------+--------------------+--------------------------------------------------------------------------------+---------------------+
++----+---------+------------+--------------------+--------------------------------------------------------------------------------+---------------------+
 
 ```
 
@@ -174,6 +174,7 @@ created_at timestamp DEFAULT current_timestamp
         "Log": [
             {
                 "type": "[INFOS]",
+                "username": "PierroD",
                 "message": "Informational Test",
                 "date": "15/02/2020",
                 "created_at": "17:28:06.2906",
@@ -181,6 +182,7 @@ created_at timestamp DEFAULT current_timestamp
             },
             {
                 "type": "[DEBUG]",
+                "username": "PierroD",
                 "message": "Debug Test",
                 "date": "15/02/2020",
                 "created_at": "17:28:06.5249",
@@ -188,6 +190,7 @@ created_at timestamp DEFAULT current_timestamp
             },
             {
                 "type": "[ERROR]",
+                "username": "PierroD",
                 "message": "Error Test",
                 "date": "15/02/2020",
                 "created_at": "17:28:06.5561",
