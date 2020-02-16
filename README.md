@@ -68,7 +68,7 @@ App.config for File & Database & Json :
   </startup>
   <PLogger>
     <targets>
-            <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" minLevel="Trace" detailMode="true"/>
+      <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" minLevel="Trace" detailMode="true"/>
       <add saveType="json" fileName="PLogger" filePath="" minLevel="Infos" detailMode="true"/>
       <add saveType="file" fileName="PLogger" filePath="" minLevel="Warns" detailMode="true"/>
     </targets>
