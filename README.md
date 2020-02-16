@@ -1,4 +1,7 @@
-## PLogger [![Github All Releases]()]()
+## PLogger [![Github All Releases](https://github.com/PierroD/PLogger/raw/master/bin/Debug/PLogger.dll)]()
+{% raw %}
+<button onclick="window.open('github.com/PierroD/PLogger/raw/master/bin/Debug/PLogger.dll')">Download</button>
+{% endraw %}
 This project is similar to ([NLog](https://nlog-project.org) or [Log4Net](https://logging.apache.org/log4net/)) Frameworks.
 My goal is to build my own Log system.
 
