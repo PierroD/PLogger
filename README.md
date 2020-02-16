@@ -1,6 +1,6 @@
 # PLogger 
 
-##### Lastest version 1.0 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/Release.zip">Download link</a>
+##### Lastest version 1.0 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLogger.zip">Download link</a>
 
 This project is similar to ([NLog](https://nlog-project.org) or [Log4Net](https://logging.apache.org/log4net/)) Frameworks.
 My goal is to build my own Log system.
