@@ -1,20 +1,38 @@
-## PLogger [![Github All Releases](https://github.com/PierroD/PLogger/raw/master/bin/Debug/PLogger.dll)]()
-{% raw %}
-<button onclick="window.open('github.com/PierroD/PLogger/raw/master/bin/Debug/PLogger.dll')">Download</button>
-{% endraw %}
+# PLogger 
+
+#####Lastest version 1.0 : <a href="https://github.com/PierroD/PLogger/blob/master/bin/Release/Release.zip">Download link</a>
+
 This project is similar to ([NLog](https://nlog-project.org) or [Log4Net](https://logging.apache.org/log4net/)) Frameworks.
 My goal is to build my own Log system.
 
 
-## Setup
-Download the PLogger.ddl file, add it as a reference in your .csproj
+## Summary 
+* [Setup](#setup)
+* [Log Level](#log-level)
+* [Commun usage](#commun-usage)
+* [Differents logs type](#differents-logs-type)
+* [DetailMode](#detailmode)
+* [Minimum Level](#minimum-level)
+* [Database (MySQL)](#database-mysql)
+* [Json](#json)
+* [File.log example](#file-log-example)
+
+
+
+
+
+
+## <a name="setup"></a>Setup
+Click on the download link, 
+then add it as a reference in your .csproj.
 And in the using section of your class (.cs) add :
 ```c#
 using PLogger
 ``` 
 
+
     
-## Log Level
+## <a name="log-level"></a>Log Level
 
 * ````Trace````, ```Debug```, ```Infos```, ```Warns```, ```Error```, ```Fatal``` : you can use those in your application
 * ```Internal Error``` : this one is used by PLogger if you do a mistake with the App.config file or database
@@ -31,7 +49,7 @@ Logger.Error("your text"); // !! [ERROR]
 Logger.Fatal("your text"); // F  [FATAL]
 ```
 
-## File | Database | Json
+## <a name="differents-logs-type"></a>Differents logs type
 
 * File : allow you to save your logs in a .log file
 * Database : : allow you to save your log inside a mysql database (you just need to create the table)
@@ -50,9 +68,9 @@ App.config for File & Database & Json :
   </startup>
   <PLogger>
     <targets>
-       <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" detailMode="true" />
-      <add saveType="json" fileName="PLogger" filePath="" detailMode="true"/>
-      <add saveType="file" fileName="PLogger" filePath="" detailMode="true"/>
+            <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" minLevel="Trace" detailMode="true"/>
+      <add saveType="json" fileName="PLogger" filePath="" minLevel="Infos" detailMode="true"/>
+      <add saveType="file" fileName="PLogger" filePath="" minLevel="Warns" detailMode="true"/>
     </targets>
   </PLogger>
 </configuration>
@@ -62,7 +80,7 @@ detailMode allow you to see which function your programm went through (really us
 You are also able to save your logs inside a MySQL database.
 
 
-## DetailMode 
+## <a name="detailmode"></a>DetailMode 
  - PLogger is able to give you (where it get called) : 
 ``` 
 the file|the method|this ligne
@@ -71,7 +89,7 @@ the file|the method|this ligne
 
 - To use detail mode set it to "true" in the App.config :
 ```xml
-<add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" detailMode="true" />
+<add ... detailMode="true" />
 ```
 - To make it works, add the following line to evey method :
 ```c#
@@ -83,7 +101,32 @@ Logger.Infos("this is an informational test");
 !! [ERROR] PierroD 14/02/2020 < 20:31:47.9161 > ( Program.cs|Main|ligne.20 ) Error Test
 ```
 
-## Database (MySQL)
+## <a name="minimum-level"></a>Minimum Level 
+ * Allow you to choose which level you want to see 
+ -- Trace : minimum level used to get more details in your ``logs`` (use it with Logger.setFunctionPassedThrough())
+ -- Debug : Use it when you are building your application
+ -- Infos : Use it to let some information in your ``logs`` 
+ -- Warns : Use it to inform users about an error
+ -- Error : Use it when there is an important / critical error
+ -- Fatal : Use it when there is an unexpected error (crashs...)
+ 
+
+- To use this minimum level set it to the minimum level of errors you wants to appear in your ``logs`` in the App.config :
+```xml
+<add ... minLevel="Debug" />
+```
+
+##### Example
+```c#
+// minLevel = "Trace"
+I  [INFOS] Light 16/02/2020 < 19:28:40.3554 > Informational Test
+?? [DEBUG] Light 16/02/2020 < 19:28:40.3883 > ( Program.cs|TestDebugFunction|ligne.21 ) Debug Test
+!! [ERROR] Light 16/02/2020 < 19:28:40.4392 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
+// minLevel = "Warns"
+!! [ERROR] Light 16/02/2020 < 19:30:36.8681 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
+```
+
+## <a name="database-mysql"></a>Database (MySQL)
 - To make it work you have to build the same table :
 ```sql
 create database PLogger;
@@ -99,7 +142,7 @@ created_at timestamp DEFAULT current_timestamp
 ```
 - Add this line in your App.config (Add it before the file.log one)
 ```xml
-   <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" detailMode="true" />
+   <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" detailMode="true" minLevel="Trace"/>
 ```
 #### Example
 ```sql
@@ -113,10 +156,10 @@ created_at timestamp DEFAULT current_timestamp
 
 ```
 
-## JSON
+## <a name="json"></a>JSON
 - Add this line in your App.config (add it before the file.log one)
 ```xml
-     <add saveType="json" fileName="PLogger" filePath="" detailMode="true"/>
+     <add saveType="json" fileName="PLogger" filePath=""  minLevel="Trace" detailMode="true"/>
 ```
 ##### Example
 ```json
@@ -149,7 +192,7 @@ created_at timestamp DEFAULT current_timestamp
 }
 ```
 
-## File.log | Example 
+## <a name="file-log-example"></a>File.log | Example 
 
 - PLogger_15-02-2020.log
 ```
