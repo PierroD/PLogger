@@ -1,0 +1,27 @@
+{
+    "PLogger": {
+        "Log": [
+            {
+                "type": "[INFOS]",
+                "message": "Informational Test",
+                "date": "15/02/2020",
+                "created_at": "17:28:06.2906",
+                "passed_through": null
+            },
+            {
+                "type": "[DEBUG]",
+                "message": "Debug Test",
+                "date": "15/02/2020",
+                "created_at": "17:28:06.5249",
+                "passed_through": "Program.cs|TestDebugFunction|ligne.21"
+            },
+            {
+                "type": "[ERROR]",
+                "message": "Error Test",
+                "date": "15/02/2020",
+                "created_at": "17:28:06.5561",
+                "passed_through": "Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26"
+            }
+        ]
+    }
+}

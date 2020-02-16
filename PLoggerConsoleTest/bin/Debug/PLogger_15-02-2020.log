@@ -1,0 +1,6 @@
+I  [INFOS] Light 15/02/2020 < 17:28:06.4936 > Informational Test
+?? [DEBUG] Light 15/02/2020 < 17:28:06.5405 > ( Program.cs|TestDebugFunction|ligne.21 ) Debug Test
+!! [ERROR] Light 15/02/2020 < 17:28:06.5717 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
+I  [INFOS] Light 15/02/2020 < 18:56:20.1491 > Informational Test
+?? [DEBUG] Light 15/02/2020 < 18:56:20.1970 > ( Program.cs|TestDebugFunction|ligne.21 ) Debug Test
+!! [ERROR] Light 15/02/2020 < 18:56:20.2428 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
