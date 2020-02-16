@@ -102,12 +102,18 @@ Logger.Infos("this is an informational test");
 ```
 
 ## <a name="minimum-level"></a>Minimum Level 
- * Allow you to choose which level you want to see 
+ * Allow you to choose which level you want to see  :
+
  -- Trace : minimum level used to get more details in your ``logs`` (use it with Logger.setFunctionPassedThrough())
+
  -- Debug : Use it when you are building your application
+
  -- Infos : Use it to let some information in your ``logs`` 
+
  -- Warns : Use it to inform users about an error
+
  -- Error : Use it when there is an important / critical error
+
  -- Fatal : Use it when there is an unexpected error (crashs...)
  
 
@@ -119,11 +125,11 @@ Logger.Infos("this is an informational test");
 ##### Example
 ```c#
 // minLevel = "Trace"
-I  [INFOS] Light 16/02/2020 < 19:28:40.3554 > Informational Test
-?? [DEBUG] Light 16/02/2020 < 19:28:40.3883 > ( Program.cs|TestDebugFunction|ligne.21 ) Debug Test
-!! [ERROR] Light 16/02/2020 < 19:28:40.4392 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
+I  [INFOS] PierroD 16/02/2020 < 19:28:40.3554 > Informational Test
+?? [DEBUG] PierroD 16/02/2020 < 19:28:40.3883 > ( Program.cs|TestDebugFunction|ligne.21 ) Debug Test
+!! [ERROR] PierroD 16/02/2020 < 19:28:40.4392 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
 // minLevel = "Warns"
-!! [ERROR] Light 16/02/2020 < 19:30:36.8681 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
+!! [ERROR] PierroD 16/02/2020 < 19:30:36.8681 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
 ```
 
 ## <a name="database-mysql"></a>Database (MySQL)
@@ -142,16 +148,16 @@ created_at timestamp DEFAULT current_timestamp
 ```
 - Add this line in your App.config (Add it before the file.log one)
 ```xml
-   <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" detailMode="true" minLevel="Trace"/>
+   <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" minLevel="Trace" detailMode="true"/>
 ```
 #### Example
 ```sql
 +----+---------+----------+--------------------+--------------------------------------------------------------------------------+---------------------+
 | id | type    | username | message            | passed_through                                                                 | created_at          |
 +----+---------+----------+--------------------+--------------------------------------------------------------------------------+---------------------+
-| 49 | [INFOS] | Light    | Informational Test | NULL                                                                           | 2020-02-15 18:56:19 |
-| 50 | [DEBUG] | Light    | Debug Test         | Program.cs|TestDebugFunction|ligne.21                                          | 2020-02-15 18:56:20 |
-| 51 | [ERROR] | Light    | Error Test         | Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 | 2020-02-15 18:56:20 |
+| 49 | [INFOS] | PierroD    | Informational Test | NULL                                                                           | 2020-02-15 18:56:19 |
+| 50 | [DEBUG] | PierroD    | Debug Test         | Program.cs|TestDebugFunction|ligne.21                                          | 2020-02-15 18:56:20 |
+| 51 | [ERROR] | PierroD    | Error Test         | Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 | 2020-02-15 18:56:20 |
 +----+---------+----------+--------------------+--------------------------------------------------------------------------------+---------------------+
 
 ```
