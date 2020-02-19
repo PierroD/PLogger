@@ -18,12 +18,11 @@ C:\Users\Light\source\repos\PLogger\bin\Debug\PLogger.dll
 C:\Users\Light\source\repos\PLogger\bin\Debug\PLogger.pdb
 C:\Users\Light\source\repos\PLogger\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\Light\source\repos\PLogger\bin\Debug\Google.Protobuf.dll
-C:\Users\Light\source\repos\PLogger\bin\Debug\MySql.Data.dll
 C:\Users\Light\source\repos\PLogger\bin\Debug\Renci.SshNet.dll
-C:\Users\Light\source\repos\PLogger\bin\Debug\Ubiety.Dns.Core.dll
 C:\Users\Light\source\repos\PLogger\bin\Debug\MySql.Data.xml
 C:\Users\Light\source\repos\PLogger\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.csprojAssemblyReference.cache
 C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.csproj.CopyComplete
 C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.dll
 C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.pdb
+C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.csproj.CoreCompileInputs.cache

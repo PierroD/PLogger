@@ -11,20 +11,33 @@ namespace PLoggerConsoleTest
     {
         static void Main(string[] args)
         {
-            Logger.Infos("Informational Test");
+            Log.Infos("Informational Test");
             TestDebugFunction();
             TestErrorFunction();
+            TestReturnException();
         }
 
         private static void TestDebugFunction()
         {
-            Logger.setFunctionPassedThrough();
-            Logger.Debug("Debug Test");
+            Log.setFunctionPassedThrough();
+            Log.Debug("Debug Test");
         }
         private static void TestErrorFunction()
         {
-            Logger.setFunctionPassedThrough();
-            Logger.Error("Error Test");
+            Log.setFunctionPassedThrough();
+            Log.Error("Error Test");
+        }
+        private static void TestReturnException()
+        {
+            try
+            {
+                int y = 0;
+                int x = 100 / y;
+            }
+            catch(Exception e)
+            {
+                Log.Error(e, " Division by zero : ");
+            }
         }
     }
 }

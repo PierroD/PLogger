@@ -1,0 +1,56 @@
+IE [INTERNAL ERROR] Light  19/02/2020 < 23:41:00.6203 > System.Configuration.ConfigurationErrorsException: Une erreur s'est produite lors de la création du gestionnaire de section de configuration pour PLogger : Impossible de charger le fichier ou l'assembly 'PLoggger' ou une de ses dépendances. Le fichier spécifié est introuvable. (C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\bin\Debug\PLoggerConsoleTest.exe.Config line 4) ---> System.IO.FileNotFoundException: Impossible de charger le fichier ou l'assembly 'PLoggger' ou une de ses dépendances. Le fichier spécifié est introuvable.
+   à System.Configuration.TypeUtil.GetTypeWithReflectionPermission(IInternalConfigHost host, String typeString, Boolean throwOnError)
+   à System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.Init(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord)
+   à System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.InitWithRestrictedPermissions(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord)
+   à System.Configuration.RuntimeConfigurationRecord.CreateSectionFactory(FactoryRecord factoryRecord)
+   à System.Configuration.BaseConfigurationRecord.FindAndEnsureFactoryRecord(String configKey, Boolean& isRootDeclaredHere)
+   --- Fin de la trace de la pile d'exception interne ---
+   à System.Configuration.BaseConfigurationRecord.FindAndEnsureFactoryRecord(String configKey, Boolean& isRootDeclaredHere)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSection(String configKey)
+   à System.Configuration.ClientConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection(String sectionName)
+   à System.Configuration.ConfigurationManager.GetSection(String sectionName)
+   à PLogger.Log.GetConfig() dans C:\Users\Light\source\repos\PLogger\Logger.cs:ligne 385
+   à PLogger.Log.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\Logger.cs:ligne 238
+IE [INTERNAL ERROR] Light  19/02/2020 < 23:41:00.6495 > System.Configuration.ConfigurationErrorsException: Une erreur s'est produite lors de la création du gestionnaire de section de configuration pour PLogger : Impossible de charger le fichier ou l'assembly 'PLoggger' ou une de ses dépendances. Le fichier spécifié est introuvable. (C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\bin\Debug\PLoggerConsoleTest.exe.Config line 4) ---> System.IO.FileNotFoundException: Impossible de charger le fichier ou l'assembly 'PLoggger' ou une de ses dépendances. Le fichier spécifié est introuvable.
+   à System.Configuration.TypeUtil.GetTypeWithReflectionPermission(IInternalConfigHost host, String typeString, Boolean throwOnError)
+   à System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.Init(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord)
+   à System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.InitWithRestrictedPermissions(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord)
+   à System.Configuration.RuntimeConfigurationRecord.CreateSectionFactory(FactoryRecord factoryRecord)
+   à System.Configuration.BaseConfigurationRecord.FindAndEnsureFactoryRecord(String configKey, Boolean& isRootDeclaredHere)
+   --- Fin de la trace de la pile d'exception interne ---
+   à System.Configuration.BaseConfigurationRecord.FindAndEnsureFactoryRecord(String configKey, Boolean& isRootDeclaredHere)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSection(String configKey)
+   à System.Configuration.ClientConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection(String sectionName)
+   à System.Configuration.ConfigurationManager.GetSection(String sectionName)
+   à PLogger.Log.GetConfig() dans C:\Users\Light\source\repos\PLogger\Logger.cs:ligne 385
+   à PLogger.Log.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\Logger.cs:ligne 238
+IE [INTERNAL ERROR] Light  19/02/2020 < 23:41:00.6594 > System.Configuration.ConfigurationErrorsException: Une erreur s'est produite lors de la création du gestionnaire de section de configuration pour PLogger : Impossible de charger le fichier ou l'assembly 'PLoggger' ou une de ses dépendances. Le fichier spécifié est introuvable. (C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\bin\Debug\PLoggerConsoleTest.exe.Config line 4) ---> System.IO.FileNotFoundException: Impossible de charger le fichier ou l'assembly 'PLoggger' ou une de ses dépendances. Le fichier spécifié est introuvable.
+   à System.Configuration.TypeUtil.GetTypeWithReflectionPermission(IInternalConfigHost host, String typeString, Boolean throwOnError)
+   à System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.Init(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord)
+   à System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.InitWithRestrictedPermissions(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord)
+   à System.Configuration.RuntimeConfigurationRecord.CreateSectionFactory(FactoryRecord factoryRecord)
+   à System.Configuration.BaseConfigurationRecord.FindAndEnsureFactoryRecord(String configKey, Boolean& isRootDeclaredHere)
+   --- Fin de la trace de la pile d'exception interne ---
+   à System.Configuration.BaseConfigurationRecord.FindAndEnsureFactoryRecord(String configKey, Boolean& isRootDeclaredHere)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSection(String configKey)
+   à System.Configuration.ClientConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection(String sectionName)
+   à System.Configuration.ConfigurationManager.GetSection(String sectionName)
+   à PLogger.Log.GetConfig() dans C:\Users\Light\source\repos\PLogger\Logger.cs:ligne 385
+   à PLogger.Log.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\Logger.cs:ligne 238
+IE [INTERNAL ERROR] Light  19/02/2020 < 23:41:00.6734 > System.Configuration.ConfigurationErrorsException: Une erreur s'est produite lors de la création du gestionnaire de section de configuration pour PLogger : Impossible de charger le fichier ou l'assembly 'PLoggger' ou une de ses dépendances. Le fichier spécifié est introuvable. (C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\bin\Debug\PLoggerConsoleTest.exe.Config line 4) ---> System.IO.FileNotFoundException: Impossible de charger le fichier ou l'assembly 'PLoggger' ou une de ses dépendances. Le fichier spécifié est introuvable.
+   à System.Configuration.TypeUtil.GetTypeWithReflectionPermission(IInternalConfigHost host, String typeString, Boolean throwOnError)
+   à System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.Init(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord)
+   à System.Configuration.RuntimeConfigurationRecord.RuntimeConfigurationFactory.InitWithRestrictedPermissions(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord)
+   à System.Configuration.RuntimeConfigurationRecord.CreateSectionFactory(FactoryRecord factoryRecord)
+   à System.Configuration.BaseConfigurationRecord.FindAndEnsureFactoryRecord(String configKey, Boolean& isRootDeclaredHere)
+   --- Fin de la trace de la pile d'exception interne ---
+   à System.Configuration.BaseConfigurationRecord.FindAndEnsureFactoryRecord(String configKey, Boolean& isRootDeclaredHere)
+   à System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   à System.Configuration.BaseConfigurationRecord.GetSection(String configKey)
+   à System.Configuration.ClientConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection(String sectionName)
+   à System.Configuration.ConfigurationManager.GetSection(String sectionName)
+   à PLogger.Log.GetConfig() dans C:\Users\Light\source\repos\PLogger\Logger.cs:ligne 385
+   à PLogger.Log.whichMethodToLog() dans C:\Users\Light\source\repos\PLogger\Logger.cs:ligne 238

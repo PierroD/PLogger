@@ -1,0 +1,11 @@
+!! [ERROR] Light 19/02/2020 < 23:16:29.3642 > ( Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27 ) Error Test
+!! [ERROR] Light 19/02/2020 < 23:16:29.4210 > ( Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27 )  | System.DivideByZeroException: Tentative de division par zéro.
+   à PLoggerConsoleTest.Program.TestReturnException() dans C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\Program.cs:ligne 35
+!! [ERROR] Light 19/02/2020 < 23:18:31.4564 > ( Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27 ) Error Test
+!! [ERROR] Light 19/02/2020 < 23:18:31.4939 > ( Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27 ) System.DivideByZeroException: Tentative de division par zéro.
+   à PLoggerConsoleTest.Program.TestReturnException() dans C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\Program.cs:ligne 35
+IE [INTERNAL ERROR] Light  19/02/2020 < 23:28:54.6060 > No writting log method
+IE [INTERNAL ERROR] Light  19/02/2020 < 23:28:54.6419 > No writting log method
+!! [ERROR] Light 19/02/2020 < 23:40:34.5796 > ( Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27 ) Error Test
+!! [ERROR] Light 19/02/2020 < 23:40:34.6317 > ( Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27 )  Division by zero :  | System.DivideByZeroException: Tentative de division par zéro.
+   à PLoggerConsoleTest.Program.TestReturnException() dans C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\Program.cs:ligne 35

@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace PLogger
 {
-    public class Logger
+    public class Log
     {
         private static string _msg;
         private static string _functionPassThrough;
@@ -22,6 +22,7 @@ namespace PLogger
         private static int _level;
 
         #region Message Type
+        #region single parameter
         public static void Trace(string message)
         {
             _type = ">> [TRACE]";
@@ -43,7 +44,7 @@ namespace PLogger
             _level = 2;
             whichMethodToLog();
         }
-        public static void Warn(string message)
+        public static void Warns(string message)
         {
             _type = "W  [WARNS]";
             _msg = message;
@@ -69,6 +70,74 @@ namespace PLogger
         {
             return $"IE [INTERNAL ERROR] {Environment.UserName}  {CurrentDate()} < {CurrentTimestamp()} > " + message;
         }
+        #endregion
+
+        #region multiple parameters
+        public static void Trace(object obj, string message = null)
+        {
+            if(obj.GetType() != typeof(String))
+            {
+                _type = ">> [TRACE]";
+                _msg = (String.IsNullOrEmpty(message))? obj.ToString() : message + " | " + obj.ToString();
+                _level = 0;
+                whichMethodToLog();
+            }
+        }
+        public static void Debug(object obj, string message = null)
+        {
+            if (obj.GetType() != typeof(String))
+            {
+                _type = "?? [DEBUG]";
+                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
+                _level = 1;
+                whichMethodToLog();
+            }
+        }
+        public static void Infos(object obj, string message = null)
+        {
+            if (obj.GetType() != typeof(String))
+            {
+                _type = "I  [INFOS]";
+                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
+                _level = 2;
+                whichMethodToLog();
+            }
+        }
+        public static void Warns(object obj, string message = null)
+        {
+            if (obj.GetType() != typeof(String))
+            {
+                _type = "W  [WARNS]";
+                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
+                _level = 3;
+                whichMethodToLog();
+            }
+        }
+        public static void Error(object obj, string message = null)
+        {
+            if (obj.GetType() != typeof(String))
+            {
+                _type = "!! [ERROR]";
+                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
+                _level = 4;
+                whichMethodToLog();
+            }
+        }
+        public static void Fatal(object obj, string message = null)
+        {
+            if (obj.GetType() != typeof(String))
+            {
+                _type = "F  [FATAL]";
+                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
+                _level = 5;
+                whichMethodToLog();
+            }
+        }
+        private static string InternalError(object obj, string message = null)
+        {
+            return String.Format($"IE [INTERNAL ERROR] {Environment.UserName}  {CurrentDate()} < {CurrentTimestamp()} > {((String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString())}");  
+        }
+        #endregion
         #endregion
 
         #region Function passed through
@@ -110,7 +179,7 @@ namespace PLogger
 
             catch (Exception e)
             {
-                _msg = InternalError(" Your App.config is malformed " + e.ToString());  //call a non-static function in a static function
+                _msg = InternalError(e, " Your App.config is malformed ");  //call a non-static function in a static function
             }
             return _msg;
         }
@@ -206,7 +275,7 @@ namespace PLogger
                                 }
                             default:
                                 {
-                                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError("No writting log method"));
+                                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError("Verify your saveType in the app.config"));
                                     break;
                                 }
                         }
@@ -215,7 +284,7 @@ namespace PLogger
             }
             catch (Exception e) //if target.FileName doesn't exist
             {
-                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e.ToString()));
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e));
             }
         }
         #endregion
@@ -266,7 +335,7 @@ namespace PLogger
             }
             catch (Exception e)
             {
-                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e.ToString()));
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e));
             }
         }
         #endregion
@@ -292,7 +361,7 @@ namespace PLogger
                 using (StreamWriter sw = File.CreateText(filePath))
                 {
                     sw.WriteLine("{ " + "\""+target.FileName+"\" : ");
-                    sw.WriteLine("{ " + "\"Log\" : [ ");
+                    sw.WriteLine("{ " + "\"Logs\" : [ ");
                     sw.WriteLine(JsonConvert.SerializeObject(msgJson));
                     sw.WriteLine("]");
                     sw.WriteLine("}");

@@ -1,0 +1,28 @@
+{ "PLogger" : 
+{ "Log" : [ 
+{"type":"[INFOS]","username":"Light","message":"Informational Test","date":"19/02/2020","created_at":"23:16:29.1909","passed_through":null}
+,
+{"type":"[ERROR]","username":"Light","message":"Error Test","date":"19/02/2020","created_at":"23:16:29.3562","passed_through":"Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27"}
+,
+{"type":"[ERROR]","username":"Light","message":" | System.DivideByZeroException: Tentative de division par zéro.\r\n   à PLoggerConsoleTest.Program.TestReturnException() dans C:\\Users\\Light\\source\\repos\\PLogger\\PLoggerConsoleTest\\Program.cs:ligne 35","date":"19/02/2020","created_at":"23:16:29.4121","passed_through":"Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27"}
+,
+{"type":"[INFOS]","username":"Light","message":"Informational Test","date":"19/02/2020","created_at":"23:18:31.3287","passed_through":null}
+,
+{"type":"[ERROR]","username":"Light","message":"Error Test","date":"19/02/2020","created_at":"23:18:31.4444","passed_through":"Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27"}
+,
+{"type":"[ERROR]","username":"Light","message":"System.DivideByZeroException: Tentative de division par zéro.\r\n   à PLoggerConsoleTest.Program.TestReturnException() dans C:\\Users\\Light\\source\\repos\\PLogger\\PLoggerConsoleTest\\Program.cs:ligne 35","date":"19/02/2020","created_at":"23:18:31.4849","passed_through":"Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27"}
+,
+{"type":"[INFOS]","username":"Light","message":"Informational Test","date":"19/02/2020","created_at":"23:28:54.4793","passed_through":null}
+,
+{"type":"[ERROR]","username":"Light","message":"Error Test","date":"19/02/2020","created_at":"23:28:54.5940","passed_through":"Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27"}
+,
+{"type":"[ERROR]","username":"Light","message":" Division by zero :  | System.DivideByZeroException: Tentative de division par zéro.\r\n   à PLoggerConsoleTest.Program.TestReturnException() dans C:\\Users\\Light\\source\\repos\\PLogger\\PLoggerConsoleTest\\Program.cs:ligne 35","date":"19/02/2020","created_at":"23:28:54.6329","passed_through":"Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27"}
+,
+{"type":"[INFOS]","username":"Light","message":"Informational Test","date":"19/02/2020","created_at":"23:40:34.4401","passed_through":null}
+,
+{"type":"[ERROR]","username":"Light","message":"Error Test","date":"19/02/2020","created_at":"23:40:34.5667","passed_through":"Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27"}
+,
+{"type":"[ERROR]","username":"Light","message":" Division by zero :  | System.DivideByZeroException: Tentative de division par zéro.\r\n   à PLoggerConsoleTest.Program.TestReturnException() dans C:\\Users\\Light\\source\\repos\\PLogger\\PLoggerConsoleTest\\Program.cs:ligne 35","date":"19/02/2020","created_at":"23:40:34.6197","passed_through":"Program.cs|TestDebugFunction|ligne.22 => Program.cs|TestErrorFunction|ligne.27"}
+]
+}
+}
