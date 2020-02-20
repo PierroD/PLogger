@@ -129,7 +129,9 @@ namespace PLogger.Configuration
                 base["dbPassword"] = value;
             }
         }
-
+        /// <summary>
+        /// Get/Set minLevel value in the app.config
+        /// </summary>
         [ConfigurationProperty("minLevel", IsKey = true, IsRequired = false)]
         public string MinLevel
         {
@@ -142,8 +144,20 @@ namespace PLogger.Configuration
                 base["minLevel"] = value;
             }
         }
-
-
-
+        /// <summary>
+        /// Get/Set detailMode value in the app.config
+        /// </summary>
+        [ConfigurationProperty("activityId", IsKey = true, IsRequired = false)]
+        public bool ActivityId
+        {
+            get
+            {
+                return (bool)base["activityId"];
+            }
+            set
+            {
+                base["activityId"] = value;
+            }
+        }
     }
 }

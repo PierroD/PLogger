@@ -20,6 +20,7 @@ namespace PLogger
         private static string _functionPassThrough;
         private static string _type;
         private static int _level;
+        private static Guid _UId;
 
         #region Message Type
         #region single parameter
@@ -159,6 +160,25 @@ namespace PLogger
         }
         #endregion
 
+        #region ActivityId
+        public static void setActivityId()
+        {
+            _UId = Guid.NewGuid();
+        }
+        private static string getActivityId()
+        {
+            if (_UId != Guid.Empty && _UId != null)
+            {
+                return _UId.ToString();
+            }
+            else
+            {
+                setActivityId();
+                return _UId.ToString();
+            }
+        }
+        #endregion
+
         #region Create Message
         /// <summary>
         /// Create a generic message using parameters
@@ -169,12 +189,18 @@ namespace PLogger
         {
             try
             {
+                string temp_msg;
+                temp_msg = String.Format($"{_type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > ");
+
+                if (target.ActivityId == true)
+                    temp_msg += "{" + getActivityId() + "} ";
 
                 if (target.DetailMode == true && !String.IsNullOrEmpty(getFunctionPassedThrough()))
-                    _msg = string.Format($"{_type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > ( { getFunctionPassedThrough()} ) {_msg}");
-                else
-                    _msg = string.Format($"{_type} {Environment.UserName} {CurrentDate()} < {CurrentTimestamp()} > {_msg}");
-                //call a non-static function in a static function
+                    temp_msg += string.Format($"( { getFunctionPassedThrough()} ) ");
+
+                _msg = temp_msg + _msg; 
+
+                
             }
 
             catch (Exception e)
@@ -244,12 +270,13 @@ namespace PLogger
                             case "mysql":
                                 {
                                     string connection = String.Format($"SERVER={target.DbHost};DATABASE={target.DbName};UID={target.DbUser};PASSWORD={target.DbPassword};");
-                                    writeToDatabase(new MySqlConnection(connection), target.DetailMode);
+                                    writeToDatabase(new MySqlConnection(connection), target.DetailMode, target.ActivityId);
                                     break;
                                 }
                             case "json":
                                 {
                                     MessageJson message = new MessageJson();
+                                    message.unique_id = (target.ActivityId) ? getActivityId() : null ;
                                     message.type = _type.Substring(3).Replace(" ", String.Empty);
                                     message.username = Environment.UserName;
                                     message.message = _msg;
@@ -289,7 +316,6 @@ namespace PLogger
         }
         #endregion
 
-
         #region savingType
 
         #region file
@@ -320,13 +346,14 @@ namespace PLogger
 
         #region database
 
-        private static void writeToDatabase(MySqlConnection connection, bool detail)
+        private static void writeToDatabase(MySqlConnection connection, bool detail, bool activityId)
         {
             try
             {
                 connection.Open();
                 MySqlCommand query = connection.CreateCommand();
-                query.CommandText = "INSERT INTO Log(type, username, message, passed_through) VALUES(@type, @username, @message, @passed_through)";
+                query.CommandText = "INSERT INTO Log(activity_id, type, username, message, passed_through) VALUES(@activity_id, @type, @username, @message, @passed_through)";
+                query.Parameters.AddWithValue("@activity_id", (activityId) ? getActivityId() : null);
                 query.Parameters.AddWithValue("@type", _type.Substring(3).Replace(" ", String.Empty));
                 query.Parameters.AddWithValue("@username", Environment.UserName);
                 query.Parameters.AddWithValue("@message", _msg);

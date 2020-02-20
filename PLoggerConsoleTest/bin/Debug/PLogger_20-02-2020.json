@@ -1,0 +1,42 @@
+{
+  "PLogger": {
+    "Logs": [
+      {
+        "unique_id": "99bb3572-03da-4e0e-9dd2-69e3ec07807a",
+        "type": "[INFOS]",
+        "username": "Light",
+        "message": "Informational Test",
+        "date": "20/02/2020",
+        "created_at": "20:51:53.1862",
+        "passed_through": null
+      },
+      {
+        "unique_id": "99bb3572-03da-4e0e-9dd2-69e3ec07807a",
+        "type": "[ERROR]",
+        "username": "Light",
+        "message": "Error Test",
+        "date": "20/02/2020",
+        "created_at": "20:51:53.3069",
+        "passed_through": "Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29"
+      },
+      {
+        "unique_id": "acd22781-4489-46f4-9b82-f351f60587b2",
+        "type": "[INFOS]",
+        "username": "Light",
+        "message": "Informational Test",
+        "date": "20/02/2020",
+        "created_at": "20:56:33.7366",
+        "passed_through": null
+      },
+      {
+        "unique_id": "acd22781-4489-46f4-9b82-f351f60587b2",
+        "type": "[ERROR]",
+        "username": "Light",
+        "message": "Error Test",
+        "date": "20/02/2020",
+        "created_at": "20:56:33.8463",
+        "passed_through": "Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29"
+      }
+    ]
+  }
+}

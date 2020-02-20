@@ -8,6 +8,7 @@ namespace PLogger
 {
     public class MessageJson
     {
+        public string unique_id;
         public string type;
         public string username;
         public string message;

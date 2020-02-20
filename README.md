@@ -1,6 +1,8 @@
 # PLogger
 
-##### Lastest version 1.1 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.1.zip">Download link</a>
+##### Lastest version 1.2 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.2.zip">Download link</a>
+
+##### Previous version 1.1 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.1.zip">Download link</a>
 
 ##### Oldest version 1.0 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.0.zip">Download link</a>
 
@@ -13,6 +15,7 @@ My goal is to build my own Log system.
 - [Log Level](#log-level)
 - [Commun usage](#commun-usage)
 - [Differents logs type](#differents-logs-type)
+- [ActivityId](#activity-id)
 - [DetailMode](#detailmode)
 - [Minimum Level](#minimum-level)
 - [Database (MySQL)](#database-mysql)
@@ -38,7 +41,7 @@ using PLogger
 ## Commun usage
 
 This method is static for the moment so to call it
-you just have to write `Logger.*`:
+you just have to write `Log.*`:
 
 [Single Parameter]
 
@@ -92,9 +95,9 @@ App.config for File & Database & Json :
   </startup>
   <PLogger>
     <targets>
-      <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" minLevel="Trace" detailMode="true"/>
-      <add saveType="json" fileName="PLogger" filePath="" minLevel="Infos" detailMode="true"/>
-      <add saveType="file" fileName="PLogger" filePath="" minLevel="Warns" detailMode="true"/>
+      <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="123+aze" minLevel="Fatal" detailMode="true" activityId="true"/>
+      <add saveType="json" fileName="PLogger" filePath="" minLevel="Infos" detailMode="true" activityId="true"/>
+      <add saveType="file" fileName="PLogger" filePath="" minLevel="Debug" detailMode="true" activityId="false"/>
     </targets>
   </PLogger>
 </configuration>
@@ -106,10 +109,16 @@ You are also able to save your logs inside a MySQL database.
 
 ## <a name="detailmode"></a>DetailMode
 
+- Benefits :
+
+-- You can enable (true) and disable (false) it directly in the App.config
+
+-- PLogger helps you to know which function your programm when through before creating a log
+
 - PLogger is able to give you (where it get called) :
 
 ```
-the file|the method|this ligne
+the file| the method | the ligne
 ```
 
 - To use detail mode set it to "true" in the App.config :
@@ -164,6 +173,77 @@ I  [INFOS] PierroD 16/02/2020 < 19:28:40.3554 > Informational Test
 !! [ERROR] PierroD 16/02/2020 < 19:30:36.8681 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
 ```
 
+## <a name="activity-id"></a>Activity Id
+
+- Benefits :
+
+-- You can enable (true) or disable (false) it directly into the App.config
+
+-- By default it will provide a Unique_Id every time even if you don't call it, it depends of your needs
+
+-- It's better to keep a clear history inside your logs
+
+- To use Activity Id set it to "true" in the App.config :
+
+```xml
+<add ... activityId="true" />
+```
+
+- First way to use it :
+  Call `Log.setActivityId();` every time you need to change it (for example : everytime you click on button and you have to keep all this log to group them later)
+
+```c#
+private static void TestDebugFunction()
+{
+  Log.setActivityId();
+  Log.setFunctionPassedThrough();
+  Log.Debug("Debug Test");
+}
+private static void TestErrorFunction()
+{
+  Log.setActivityId();
+  Log.setFunctionPassedThrough();
+  Log.Error("Error Test");
+}
+```
+
+- Second way to use it :
+  If you don't call it, PLogger will create one automatically, so use it you want to save your logs on each run without taking care of the actions
+
+```c#
+static void Main(string[] args)
+{
+  Log.Infos("Informational Test");
+  TestDebugFunction();
+  TestErrorFunction();
+
+}
+
+private static void TestDebugFunction()
+{
+  Log.setFunctionPassedThrough();
+  Log.Debug("Debug Test");
+}
+private static void TestErrorFunction()
+{
+  Log.setFunctionPassedThrough();
+  Log.Error("Error Test");
+}
+```
+
+##### Example
+
+- File.log
+
+```
+// activityId = true
+!! [ERROR] PierroD 20/02/2020 < 20:51:53.3159 > {99bb3572-03da-4e0e-9dd2-69e3ec07807a} ( Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 ) Error Test
+// activityId = false
+I  [INFOS] PierroD 20/02/2020 < 20:56:33.8333 > Informational Test
+?? [DEBUG] PierroD 20/02/2020 < 20:56:33.8423 > ( Program.cs|TestDebugFunction|ligne.24 ) Debug Test
+!! [ERROR] PierroD 20/02/2020 < 20:56:33.8543 > ( Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 ) Error Test
+```
+
 ## <a name="database-mysql"></a>Database (MySQL)
 
 - To make it work you have to build the same table :
@@ -173,30 +253,32 @@ create database PLogger;
 use PLogger;
 create table Log(
 id int not null auto_increment primary key,
+created_at timestamp DEFAULT current_timestamp,
+activity_id varchar(255),
 type varchar(7),
 username varchar(255),
 message varchar(255),
-passed_through varchar(255),
-created_at timestamp DEFAULT current_timestamp
+passed_through varchar(255)
 );
+
 ```
 
 - Add this line in your App.config (Add it before the file.log one)
 
 ```xml
-   <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" minLevel="Trace" detailMode="true"/>
+<add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" minLevel="Trace" detailMode="true" activityId="true"/>
 ```
 
 #### Example
 
 ```sql
-+----+---------+------------+--------------------+--------------------------------------------------------------------------------+---------------------+
-| id | type    | username   | message            | passed_through                                                                 | created_at          |
-+----+---------+------------+--------------------+--------------------------------------------------------------------------------+---------------------+
-| 49 | [INFOS] | PierroD    | Informational Test | NULL                                                                           | 2020-02-15 18:56:19 |
-| 50 | [DEBUG] | PierroD    | Debug Test         | Program.cs|TestDebugFunction|ligne.21                                          | 2020-02-15 18:56:20 |
-| 51 | [ERROR] | PierroD    | Error Test         | Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 | 2020-02-15 18:56:20 |
-+----+---------+------------+--------------------+--------------------------------------------------------------------------------+---------------------+
++----+---------------------+--------------------------------------+---------+----------+--------------------+--------------------------------------------------------------------------------+
+| id | created_at          | activity_id                          | type    | username | message            | passed_through                                                                 |
++----+---------------------+--------------------------------------+---------+----------+--------------------+--------------------------------------------------------------------------------+
+|  1 | 2020-02-20 20:51:53 | 99bb3572-03da-4e0e-9dd2-69e3ec07807a | [INFOS] | PierroD  | Informational Test | NULL                                                                           |
+|  2 | 2020-02-20 20:51:53 | 99bb3572-03da-4e0e-9dd2-69e3ec07807a | [DEBUG] | PierroD  | Debug Test         | Program.cs|TestDebugFunction|ligne.24                                          |
+|  3 | 2020-02-20 20:51:53 | 99bb3572-03da-4e0e-9dd2-69e3ec07807a | [ERROR] | PierroD  | Error Test         | Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 |
++----+---------------------+--------------------------------------+---------+----------+--------------------+--------------------------------------------------------------------------------+
 
 ```
 
@@ -205,7 +287,7 @@ created_at timestamp DEFAULT current_timestamp
 - Add this line in your App.config (add it before the file.log one)
 
 ```xml
-     <add saveType="json" fileName="PLogger" filePath=""  minLevel="Trace" detailMode="true"/>
+ <add saveType="json" fileName="PLogger" filePath=""  minLevel="Trace" detailMode="true" activityId="true" />
 ```
 
 ##### Example
@@ -215,28 +297,31 @@ created_at timestamp DEFAULT current_timestamp
   "PLogger": {
     "Logs": [
       {
+        "unique_id": "99bb3572-03da-4e0e-9dd2-69e3ec07807a",
         "type": "[INFOS]",
         "username": "PierroD",
         "message": "Informational Test",
-        "date": "15/02/2020",
-        "created_at": "17:28:06.2906",
+        "date": "20/02/2020",
+        "created_at": "20:51:53.1862",
         "passed_through": null
       },
       {
-        "type": "[DEBUG]",
-        "username": "PierroD",
-        "message": "Debug Test",
-        "date": "15/02/2020",
-        "created_at": "17:28:06.5249",
-        "passed_through": "Program.cs|TestDebugFunction|ligne.21"
-      },
-      {
+        "unique_id": "99bb3572-03da-4e0e-9dd2-69e3ec07807a",
         "type": "[ERROR]",
         "username": "PierroD",
         "message": "Error Test",
-        "date": "15/02/2020",
-        "created_at": "17:28:06.5561",
-        "passed_through": "Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26"
+        "date": "20/02/2020",
+        "created_at": "20:51:53.3069",
+        "passed_through": "Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29"
+      },
+      {
+        "unique_id": "acd22781-4489-46f4-9b82-f351f60587b2",
+        "type": "[ERROR]",
+        "username": "PierroD",
+        "message": "Error Test",
+        "date": "20/02/2020",
+        "created_at": "20:56:33.8463",
+        "passed_through": "Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29"
       }
     ]
   }
@@ -245,13 +330,15 @@ created_at timestamp DEFAULT current_timestamp
 
 ## <a name="file-log-example"></a>File.log | Example
 
-- PLogger_15-02-2020.log
+- PLogger_20-02-2020.log
 
 ```
-I  [INFOS] PierroD 15/02/2020 < 18:56:20.1491 > Informational Test
-?? [DEBUG] PierroD 15/02/2020 < 18:56:20.1970 > ( Program.cs|TestDebugFunction|ligne.21 ) Debug Test
-!! [ERROR] PierroD 15/02/2020 < 18:56:20.2428 > ( Program.cs|TestDebugFunction|ligne.21 => Program.cs|TestErrorFunction|ligne.26 ) Error Test
-
+// activityId = true
+!! [ERROR] PierroD 20/02/2020 < 20:51:53.3159 > {99bb3572-03da-4e0e-9dd2-69e3ec07807a} ( Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 ) Error Test
+// activityId = false
+I  [INFOS] PierroD 20/02/2020 < 20:56:33.8333 > Informational Test
+?? [DEBUG] PierroD 20/02/2020 < 20:56:33.8423 > ( Program.cs|TestDebugFunction|ligne.24 ) Debug Test
+!! [ERROR] PierroD 20/02/2020 < 20:56:33.8543 > ( Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 ) Error Test
 ```
 
 - ExceptionErrorPLogger_15-02-2020.log
@@ -275,14 +362,16 @@ IE [INTERNAL ERROR] PierroD  15/02/2020 < 19:06:49.5432 > MySql.Data.MySqlClient
    à MySql.Data.MySqlClient.MySqlPool.GetConnection()
    à MySql.Data.MySqlClient.MySqlConnection.Open()
    à PLogger.Class.Logger.writeToDatabase(MySqlConnection connection, Boolean detail) dans C:\Users\PierroD\source\repos\PLogger\PLogger\PLogger\Class\Logger.cs:ligne 227
-
 ```
 
 ## <a name="release-notes"></a>Release Notes
 
 ```
+v1.2
+--> Update // Release
+- Add ActivityId
 v1.1
---> Update
+--> Update // Release
 - Simplify Logger by Log
 - Add multiple parameters message
 - Add an "s" in the Json for 'Log'

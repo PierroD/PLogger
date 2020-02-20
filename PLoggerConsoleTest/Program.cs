@@ -11,10 +11,12 @@ namespace PLoggerConsoleTest
     {
         static void Main(string[] args)
         {
+            // Not necessary
+            Log.setActivityId();
             Log.Infos("Informational Test");
             TestDebugFunction();
             TestErrorFunction();
-            TestReturnException();
+          // TestReturnException();
         }
 
         private static void TestDebugFunction()

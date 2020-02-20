@@ -1,0 +1,4 @@
+!! [ERROR] Light 20/02/2020 < 20:51:53.3159 > {99bb3572-03da-4e0e-9dd2-69e3ec07807a} ( Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 ) Error Test
+I  [INFOS] Light 20/02/2020 < 20:56:33.8333 > Informational Test
+?? [DEBUG] Light 20/02/2020 < 20:56:33.8423 > ( Program.cs|TestDebugFunction|ligne.24 ) Debug Test
+!! [ERROR] Light 20/02/2020 < 20:56:33.8543 > ( Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 ) Error Test
