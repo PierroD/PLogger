@@ -1,8 +1,8 @@
 # PLogger
 
-##### Lastest version 1.2 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.2.zip">Download link</a>
+##### Lastest version 1.3 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.3.zip">Download link</a>
 
-##### Previous version 1.1 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.1.zip">Download link</a>
+##### Previous version 1.2 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.2.zip">Download link</a>
 
 ##### Oldest version 1.0 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.0.zip">Download link</a>
 
