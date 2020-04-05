@@ -11,13 +11,14 @@ using System.Runtime.CompilerServices;
 using MySql.Data.MySqlClient;
 using PLogger.Configuration;
 using Newtonsoft.Json;
+using System.Data.SqlClient;
 
 namespace PLogger
 {
     public class Log
     {
         private static string _msg;
-        private static string _functionPassThrough;
+        private static string _functionPassThrough ="";
         private static string _type;
         private static int _level;
         private static Guid _UId;
@@ -270,7 +271,13 @@ namespace PLogger
                             case "mysql":
                                 {
                                     string connection = String.Format($"SERVER={target.DbHost};DATABASE={target.DbName};UID={target.DbUser};PASSWORD={target.DbPassword};");
-                                    writeToDatabase(new MySqlConnection(connection), target.DetailMode, target.ActivityId);
+                                    writeToMySQL(new MySqlConnection(connection), target.DetailMode, target.ActivityId);
+                                    break;
+                                }
+                            case "sql":
+                                {
+                                    string connection = String.Format($"Data Source={target.DbHost};Initial Catalog={target.DbName};User ID={target.DbUser};Password={target.DbPassword};");
+                                    writeToSQL(new SqlConnection(connection), target.DetailMode, target.ActivityId);
                                     break;
                                 }
                             case "json":
@@ -345,8 +352,26 @@ namespace PLogger
         #endregion
 
         #region database
-
-        private static void writeToDatabase(MySqlConnection connection, bool detail, bool activityId)
+        private static void writeToSQL(SqlConnection connection, bool detail, bool activityId)
+        {
+            try
+            {
+                connection.Open();
+                SqlCommand query = connection.CreateCommand();
+                query.CommandText = "INSERT INTO dbo.Log(activity_id, type, username, message, passed_through) VALUES(@activity_id, @type, @username, @message, @passed_through)";
+                query.Parameters.AddWithValue("@activity_id", (activityId) ? getActivityId() : "");
+                query.Parameters.AddWithValue("@type", _type.Substring(3).Replace(" ", String.Empty));
+                query.Parameters.AddWithValue("@username", Environment.UserName);
+                query.Parameters.AddWithValue("@message", _msg);
+                query.Parameters.AddWithValue("@passed_through", (detail) ? _functionPassThrough : "empty");
+                query.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e));
+            }
+        }
+        private static void writeToMySQL(MySqlConnection connection, bool detail, bool activityId)
         {
             try
             {

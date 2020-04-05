@@ -18,7 +18,7 @@ My goal is to build my own Log system.
 - [ActivityId](#activity-id)
 - [DetailMode](#detailmode)
 - [Minimum Level](#minimum-level)
-- [Database (MySQL)](#database-mysql)
+- [Database (MySQL & SQLServer)](#database-mysql)
 - [Json](#json)
 - [File.log example](#file-log-example)
 - [Release notes](#release-notes)
@@ -96,6 +96,7 @@ App.config for File & Database & Json :
   <PLogger>
     <targets>
       <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="123+aze" minLevel="Fatal" detailMode="true" activityId="true"/>
+      <add saveType="sql" dbHost="(LocalDb)\MSSQLLocalDB" dbName="PLogger" dbUser="" dbPassword="" minLevel="Infos" detailMode="true" activityId="true"/>
       <add saveType="json" fileName="PLogger" filePath="" minLevel="Infos" detailMode="true" activityId="true"/>
       <add saveType="file" fileName="PLogger" filePath="" minLevel="Debug" detailMode="true" activityId="false"/>
     </targets>
@@ -244,16 +245,25 @@ I  [INFOS] PierroD 20/02/2020 < 20:56:33.8333 > Informational Test
 !! [ERROR] PierroD 20/02/2020 < 20:56:33.8543 > ( Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 ) Error Test
 ```
 
-## <a name="database-mysql"></a>Database (MySQL)
+## <a name="database-mysql"></a>Database (MySQL & SQLServer)
 
 - To make it work you have to build the same table :
 
 ```sql
-create database PLogger;
-use PLogger;
+--MYSQL
 create table Log(
 id int not null auto_increment primary key,
 created_at timestamp DEFAULT current_timestamp,
+activity_id varchar(255),
+type varchar(7),
+username varchar(255),
+message varchar(255),
+passed_through varchar(255)
+);
+--SQL
+create table Log(
+id int not null identity primary key,
+created_at datetime2(6) DEFAULT getdate(),
 activity_id varchar(255),
 type varchar(7),
 username varchar(255),
@@ -266,20 +276,30 @@ passed_through varchar(255)
 - Add this line in your App.config (Add it before the file.log one)
 
 ```xml
+<!-- MySQL -->
 <add saveType="mysql" dbHost="localhost" dbName="PLogger" dbUser="root" dbPassword="root" minLevel="Trace" detailMode="true" activityId="true"/>
+<!-- SQL -->
+<add saveType="sql" dbHost="(LocalDb)\MSSQLLocalDB" dbName="PLogger" dbUser="" dbPassword="" minLevel="Infos" detailMode="true" activityId="true"/>
+
 ```
 
 #### Example
-
+- MySQL
 ```sql
 +----+---------------------+--------------------------------------+---------+----------+--------------------+--------------------------------------------------------------------------------+
 | id | created_at          | activity_id                          | type    | username | message            | passed_through                                                                 |
 +----+---------------------+--------------------------------------+---------+----------+--------------------+--------------------------------------------------------------------------------+
-|  1 | 2020-02-20 20:51:53 | 99bb3572-03da-4e0e-9dd2-69e3ec07807a | [INFOS] | PierroD  | Informational Test | NULL                                                                           |
+|  1 | 2020-02-20 20:51:53 | 99bb3572-03da-4e0e-9dd2-69e3ec07807a | [INFOS] | PierroD  | Informational Test |                                                                            |
 |  2 | 2020-02-20 20:51:53 | 99bb3572-03da-4e0e-9dd2-69e3ec07807a | [DEBUG] | PierroD  | Debug Test         | Program.cs|TestDebugFunction|ligne.24                                          |
 |  3 | 2020-02-20 20:51:53 | 99bb3572-03da-4e0e-9dd2-69e3ec07807a | [ERROR] | PierroD  | Error Test         | Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29 |
 +----+---------------------+--------------------------------------+---------+----------+--------------------+--------------------------------------------------------------------------------+
 
+```
+- SQL
+```
+id	created_at	                activity_id	                            type	username	message	              passed_through
+6	2020-04-05 15:19:16.406667	aa521087-c58f-487e-bc1c-149adab9fb6a	[INFOS]	PierroD	    Informational Test	
+7	2020-04-05 15:19:16.663333	aa521087-c58f-487e-bc1c-149adab9fb6a	[ERROR]	PierroD	    Error Test	          Program.cs|TestDebugFunction|ligne.24 => Program.cs|TestErrorFunction|ligne.29
 ```
 
 ## <a name="json"></a>JSON

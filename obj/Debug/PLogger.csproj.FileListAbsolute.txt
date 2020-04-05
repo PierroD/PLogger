@@ -25,4 +25,5 @@ C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.csprojAssemblyReference.ca
 C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.csproj.CopyComplete
 C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.dll
 C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.pdb
-C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.csproj.CoreCompileInputs.cache
+C:\Users\Light\source\repos\PLogger\bin\Debug\MySql.Data.dll
+C:\Users\Light\source\repos\PLogger\bin\Debug\Ubiety.Dns.Core.dll

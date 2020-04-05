@@ -55,4 +55,3 @@ C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\obj\Debug\PLoggerConsoleT
 C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\obj\Debug\PLoggerConsoleTest.csproj.CopyComplete
 C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\obj\Debug\PLoggerConsoleTest.exe
 C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\obj\Debug\PLoggerConsoleTest.pdb
-C:\Users\Light\source\repos\PLogger\PLoggerConsoleTest\obj\Debug\PLoggerConsoleTest.csproj.CoreCompileInputs.cache
