@@ -27,3 +27,14 @@ C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.dll
 C:\Users\Light\source\repos\PLogger\obj\Debug\PLogger.pdb
 C:\Users\Light\source\repos\PLogger\bin\Debug\MySql.Data.dll
 C:\Users\Light\source\repos\PLogger\bin\Debug\Ubiety.Dns.Core.dll
+D:\Develop\Projets\perso\PLogger\bin\Debug\PLogger.dll
+D:\Develop\Projets\perso\PLogger\bin\Debug\PLogger.pdb
+D:\Develop\Projets\perso\PLogger\bin\Debug\Google.Protobuf.xml
+D:\Develop\Projets\perso\PLogger\bin\Debug\MySql.Data.xml
+D:\Develop\Projets\perso\PLogger\bin\Debug\Newtonsoft.Json.xml
+D:\Develop\Projets\perso\PLogger\bin\Debug\Renci.SshNet.xml
+D:\Develop\Projets\perso\PLogger\obj\Debug\PLogger.csproj.AssemblyReference.cache
+D:\Develop\Projets\perso\PLogger\obj\Debug\PLogger.csproj.CoreCompileInputs.cache
+D:\Develop\Projets\perso\PLogger\obj\Debug\PLogger.csproj.CopyComplete
+D:\Develop\Projets\perso\PLogger\obj\Debug\PLogger.dll
+D:\Develop\Projets\perso\PLogger\obj\Debug\PLogger.pdb

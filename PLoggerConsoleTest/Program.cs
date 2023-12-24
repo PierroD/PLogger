@@ -22,7 +22,7 @@ namespace PLoggerConsoleTest
         private static void TestDebugFunction()
         {
             Log.setFunctionPassedThrough();
-            Log.Debug("Debug Test");
+            Log.Debug("Debug Test", "another parameter", 1, "and another one");
         }
         private static void TestErrorFunction()
         {

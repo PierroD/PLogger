@@ -24,122 +24,67 @@ namespace PLogger
         private static Guid _UId;
 
         #region Message Type
-        #region single parameter
-        public static void Trace(string message)
+
+        private static string ParametersToString(params object[] parameters)
         {
+            string message = "";
+            foreach (var param in parameters)
+            {
+                message += " ";
+                message += param.GetType() == typeof(String) ? param : param.ToString();
+            }
+            return message;
+        }
+
+        public static void Trace(params object[] parameters)
+        {
+
             _type = ">> [TRACE]";
-            _msg = message;
+            _msg = ParametersToString(parameters);
             _level = 0;
             whichMethodToLog();
         }
-        public static void Debug(string message)
+        public static void Debug(params object[] parameters)
         {
             _type = "?? [DEBUG]";
-            _msg = message;
+            _msg = ParametersToString(parameters);
             _level = 1;
             whichMethodToLog();
         }
-        public static void Infos(string message)
+        public static void Infos(params object[] parameters)
         {
             _type = "I  [INFOS]";
-            _msg = message;
+            _msg = ParametersToString(parameters);
             _level = 2;
             whichMethodToLog();
         }
-        public static void Warns(string message)
+        public static void Warns(params object[] parameters)
         {
             _type = "W  [WARNS]";
-            _msg = message;
+            _msg = ParametersToString(parameters);
             _level = 3;
             whichMethodToLog();
         }
-        public static void Error(string message)
+        public static void Error(params object[] parameters)
         {
             _type = "!! [ERROR]";
-            _msg = message;
+            _msg = ParametersToString(parameters);
             _level = 4;
             whichMethodToLog();
         }
-        public static void Fatal(string message)
+        public static void Fatal(params object[] parameters)
         {
             _type = "F  [FATAL]";
-            _msg = message;
+            _msg = ParametersToString(parameters);
             _level = 5;
             whichMethodToLog();
         }
         //Internal is for internal PLogger Error
-        private static string InternalError(string message)
+        private static string InternalError(params object[] parameters)
         {
-            return $"IE [INTERNAL ERROR] {Environment.UserName}  {CurrentDate()} < {CurrentTimestamp()} > " + message;
+            return $"IE [INTERNAL ERROR] {Environment.UserName}  {CurrentDate()} < {CurrentTimestamp()} > " + ParametersToString(parameters); ;
         }
-        #endregion
 
-        #region multiple parameters
-        public static void Trace(object obj, string message = null)
-        {
-            if(obj.GetType() != typeof(String))
-            {
-                _type = ">> [TRACE]";
-                _msg = (String.IsNullOrEmpty(message))? obj.ToString() : message + " | " + obj.ToString();
-                _level = 0;
-                whichMethodToLog();
-            }
-        }
-        public static void Debug(object obj, string message = null)
-        {
-            if (obj.GetType() != typeof(String))
-            {
-                _type = "?? [DEBUG]";
-                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
-                _level = 1;
-                whichMethodToLog();
-            }
-        }
-        public static void Infos(object obj, string message = null)
-        {
-            if (obj.GetType() != typeof(String))
-            {
-                _type = "I  [INFOS]";
-                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
-                _level = 2;
-                whichMethodToLog();
-            }
-        }
-        public static void Warns(object obj, string message = null)
-        {
-            if (obj.GetType() != typeof(String))
-            {
-                _type = "W  [WARNS]";
-                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
-                _level = 3;
-                whichMethodToLog();
-            }
-        }
-        public static void Error(object obj, string message = null)
-        {
-            if (obj.GetType() != typeof(String))
-            {
-                _type = "!! [ERROR]";
-                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
-                _level = 4;
-                whichMethodToLog();
-            }
-        }
-        public static void Fatal(object obj, string message = null)
-        {
-            if (obj.GetType() != typeof(String))
-            {
-                _type = "F  [FATAL]";
-                _msg = (String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString();
-                _level = 5;
-                whichMethodToLog();
-            }
-        }
-        private static string InternalError(object obj, string message = null)
-        {
-            return String.Format($"IE [INTERNAL ERROR] {Environment.UserName}  {CurrentDate()} < {CurrentTimestamp()} > {((String.IsNullOrEmpty(message)) ? obj.ToString() : message + " | " + obj.ToString())}");  
-        }
-        #endregion
         #endregion
 
         #region Function passed through
@@ -197,7 +142,7 @@ namespace PLogger
                     temp_msg += "{" + getActivityId() + "} ";
 
                 if (target.DetailMode == true && !String.IsNullOrEmpty(getFunctionPassedThrough()))
-                    temp_msg += string.Format($"( { getFunctionPassedThrough()} ) ");
+                    temp_msg += string.Format($"( { getFunctionPassedThrough()} )");
 
                 _msg = temp_msg + _msg; 
 
@@ -234,20 +179,24 @@ namespace PLogger
         #region Check Message Level
         private static int CheckMessageLevel(PLoggerElement target)
         {
-            if (target.MinLevel == "Trace")
-                return 0;
-            else if (target.MinLevel == "Debug")
-                return 1;
-            else if (target.MinLevel == "Infos")
-                return 2;
-            else if (target.MinLevel == "Warns")
-                return 3;
-            else if (target.MinLevel == "Error")
-                return 4;
-            else if (target.MinLevel == "Fatal")
-                return 5;
-            else 
-                return -1;
+            switch (target.MinLevel)
+            {
+                case "Trace":
+                    return 0;
+                case "Debug":
+                    return 1;
+                case "Infos":
+                    return 2;
+                case "Warns":
+                    return 3;
+                case "Error":
+                    return 4;
+                case "Fatal":
+                    return 5;
+                default:
+                    return -1;
+            }
+
         }
         #endregion
 
