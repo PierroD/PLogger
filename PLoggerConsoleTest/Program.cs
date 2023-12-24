@@ -13,7 +13,7 @@ namespace PLoggerConsoleTest
         {
             // Not necessary
             Log.setActivityId();
-            Log.Infos("Informational Test");
+            Log.Infos("Informational Test", "which is really usefull");
             TestDebugFunction();
             TestErrorFunction();
           // TestReturnException();

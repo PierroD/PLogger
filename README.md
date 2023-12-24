@@ -1,5 +1,7 @@
 # PLogger
 
+##### Lastest version 1.4 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.4.zip">Download link</a>
+
 ##### Lastest version 1.3 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.3.zip">Download link</a>
 
 ##### Previous version 1.2 : <a href="https://raw.githubusercontent.com/PierroD/PLogger/master/bin/Release/PLoggerv1.2.zip">Download link</a>
@@ -40,6 +42,8 @@ using PLogger
 
 ## Commun usage
 
+> Version v1.3 and older
+
 This method is static for the moment so to call it
 you just have to write `Log.*`:
 
@@ -74,6 +78,15 @@ catch( Exception e){
   Log.Error(e, "Your Error is : ");
 }
 ```
+
+> v1.3 and newer
+
+You can now pass a lot of value and any type of value you want 
+```c#
+// here is debug but you can do it with any message type
+Log.Debug("Debug Test", "another parameter", 1, "and another one"); // ?? [DEBUG]
+```
+
 
 ## <a name="differents-logs-type"></a>Differents logs type
 
