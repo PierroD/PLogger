@@ -18,22 +18,34 @@ namespace PLogger
     public class Log
     {
         private static string _msg;
-        private static string _functionPassThrough ="";
+        private static string _functionPassThrough = "";
         private static string _type;
         private static int _level;
         private static Guid _UId;
+        private static Guid _PreviousUId;
 
         #region Message Type
 
         private static string ParametersToString(params object[] parameters)
         {
-            string message = "";
-            foreach (var param in parameters)
+            try
             {
-                message += " ";
-                message += param.GetType() == typeof(String) ? param : param.ToString();
+                string message = "";
+                foreach (var param in parameters)
+                {
+                    if (param != null)
+                    {
+                        message += " ";
+                        message += param.GetType() == typeof(String) ? param : param.ToString();
+                    }
+
+                }
+                return message;
             }
-            return message;
+            catch (Exception e)
+            {
+                return InternalError("Exception while building ParametersToString", e);
+            }
         }
 
         public static void Trace(params object[] parameters)
@@ -109,6 +121,7 @@ namespace PLogger
         #region ActivityId
         public static void setActivityId()
         {
+            _PreviousUId = _UId;
             _UId = Guid.NewGuid();
         }
         private static string getActivityId()
@@ -122,6 +135,12 @@ namespace PLogger
                 setActivityId();
                 return _UId.ToString();
             }
+        }
+
+        public static void setPreviousActivityId()
+        {
+            if (_PreviousUId != Guid.Empty)
+                _UId = _PreviousUId;
         }
         #endregion
 
@@ -142,11 +161,11 @@ namespace PLogger
                     temp_msg += "{" + getActivityId() + "} ";
 
                 if (target.DetailMode == true && !String.IsNullOrEmpty(getFunctionPassedThrough()))
-                    temp_msg += string.Format($"( { getFunctionPassedThrough()} )");
+                    temp_msg += string.Format($"( {getFunctionPassedThrough()} )");
 
-                _msg = temp_msg + _msg; 
+                _msg = temp_msg + _msg;
 
-                
+
             }
 
             catch (Exception e)
@@ -211,8 +230,8 @@ namespace PLogger
         {
             try
             {
-                    foreach (PLoggerElement target in GetConfig().PLoggerInstances)
-                    {
+                foreach (PLoggerElement target in GetConfig().PLoggerInstances)
+                {
                     if (CheckMessageLevel(target) <= _level)
                     {
                         switch (target.SaveType)
@@ -232,7 +251,7 @@ namespace PLogger
                             case "json":
                                 {
                                     MessageJson message = new MessageJson();
-                                    message.unique_id = (target.ActivityId) ? getActivityId() : null ;
+                                    message.unique_id = (target.ActivityId) ? getActivityId() : null;
                                     message.type = _type.Substring(3).Replace(" ", String.Empty);
                                     message.username = Environment.UserName;
                                     message.message = _msg;
@@ -241,24 +260,24 @@ namespace PLogger
                                     message.passed_through = (target.DetailMode) ? _functionPassThrough : null;
 
                                     if (String.IsNullOrEmpty(target.FilePath))
-                                        writeToJson(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".json", message, target);
+                                        writeToJson(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{CurrentDate().Replace('/', '-')}") + ".json", message, target);
                                     else
-                                        writeToJson(string.Format(target.FilePath + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".json", message, target);
+                                        writeToJson(string.Format(target.FilePath + "\\" + target.FileName + $"_{CurrentDate().Replace('/', '-')}") + ".json", message, target);
 
                                     break;
                                 }
                             case "file":
                                 {
                                     if (String.IsNullOrEmpty(target.FilePath))
-                                        writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", CreateMessage(target));
+                                        writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{CurrentDate().Replace('/', '-')}") + ".log", CreateMessage(target));
                                     else
-                                        writeToFile(string.Format(target.FilePath + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", CreateMessage(target));
+                                        writeToFile(string.Format(target.FilePath + "\\" + target.FileName + $"_{CurrentDate().Replace('/', '-')}") + ".log", CreateMessage(target));
                                     break;
                                     //we call the function named writeToFile with those parameters { FilePath, TheMessage }
                                 }
                             default:
                                 {
-                                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError("Verify your saveType in the app.config"));
+                                    writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + target.FileName + $"_{CurrentDate().Replace('/', '-')}") + ".log", InternalError("Verify your saveType in the app.config"));
                                     break;
                                 }
                         }
@@ -267,7 +286,7 @@ namespace PLogger
             }
             catch (Exception e) //if target.FileName doesn't exist
             {
-                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e));
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{CurrentDate().Replace('/', '-')}") + ".log", InternalError(e));
             }
         }
         #endregion
@@ -317,7 +336,7 @@ namespace PLogger
             }
             catch (Exception e)
             {
-                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e));
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{CurrentDate().Replace('/', '-')}") + ".log", InternalError(e));
             }
         }
         private static void writeToMySQL(MySqlConnection connection, bool detail, bool activityId)
@@ -336,7 +355,7 @@ namespace PLogger
             }
             catch (Exception e)
             {
-                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{ CurrentDate().Replace('/', '-') }") + ".log", InternalError(e));
+                writeToFile(string.Format(Directory.GetCurrentDirectory() + "\\" + "ExceptionErrorPLogger" + $"_{CurrentDate().Replace('/', '-')}") + ".log", InternalError(e));
             }
         }
         #endregion
@@ -361,7 +380,7 @@ namespace PLogger
             {
                 using (StreamWriter sw = File.CreateText(filePath))
                 {
-                    sw.WriteLine("{ " + "\""+target.FileName+"\" : ");
+                    sw.WriteLine("{ " + "\"" + target.FileName + "\" : ");
                     sw.WriteLine("{ " + "\"Logs\" : [ ");
                     sw.WriteLine(JsonConvert.SerializeObject(msgJson));
                     sw.WriteLine("]");

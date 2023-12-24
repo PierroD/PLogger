@@ -14,6 +14,10 @@ namespace PLoggerConsoleTest
             // Not necessary
             Log.setActivityId();
             Log.Infos("Informational Test", "which is really usefull");
+            Log.setActivityId();
+            Log.Infos("New activity id");
+            Log.setPreviousActivityId();
+            Log.Infos("SetPrevious Id");
             TestDebugFunction();
             TestErrorFunction();
           // TestReturnException();
